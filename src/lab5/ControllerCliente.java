@@ -11,7 +11,7 @@ public class ControllerCliente {
 	public String cadastrarCliente(String cpf, String nome, String email, String localizacao) {
 		Cliente cliente = new Cliente(cpf, nome, email, localizacao);
 		
-		clientes.put(cpf, cliente);
+		this.clientes.put(cpf, cliente);
 		
 		return cliente.getCpf();
 	}
