@@ -1,3 +1,4 @@
+package lab5;
 
 public class Cliente {
 	private String cpf;

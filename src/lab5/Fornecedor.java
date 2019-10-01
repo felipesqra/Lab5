@@ -1,3 +1,5 @@
+package lab5;
+
 import java.util.ArrayList;
 
 public class Fornecedor {
@@ -18,9 +20,17 @@ public class Fornecedor {
 	}
 	
 	public String toString() {
-		return nome + " - " + email + " - " + telefone;
+		return this.nome + " - " + this.email + " - " + this.telefone;
 	}
 	
+	public String listarToString() {
+		return this.nome + " - " + this.email + " - " + this.telefone + " | ";
+	}
+	
+	public void editarFornecedor(String email, String telefone) {
+		this.email = email;
+		this.telefone = telefone;
+	}
 	
 	
 }
