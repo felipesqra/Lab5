@@ -1,5 +1,10 @@
 package lab5;
 
+/**
+ * Fachada criada para se comunicar com os controllers de cada classe.
+ * @author Felipe de Souza Siqueira - 119110399
+ *
+ */
 public class Facade {
 	private ControllerFornecedor controllerFornecedor;
 	private ControllerCliente controllerCliente;
