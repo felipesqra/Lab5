@@ -24,6 +24,7 @@ public class Fornecedor {
 			produtos.put(chave, produto);
 		}
 		
+		
 	}
 	
 	public String getNome() {
@@ -43,5 +44,26 @@ public class Fornecedor {
 		this.telefone = telefone;
 	}
 	
+	public String listarProdutos() {
+		String string = "";
+		
+		for(Produto produto: this.produtos.values()) {
+			string += nome + " - " + produto.listarToString();
+		}
+		return string;
+	}
+	
+	public void editarProduto(String nome, double preço) {
+		if(this.produtos.containsKey(nome)) {
+			this.produtos.get(nome).editar(preço);
+		}
+	}
+	
+	public void removerProduto(String nome) {
+		
+		if(this.produtos.containsKey(nome)) {
+			this.produtos.remove(nome);
+		}
+	}
 	
 }

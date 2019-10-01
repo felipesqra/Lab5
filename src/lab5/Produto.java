@@ -10,4 +10,18 @@ public class Produto {
 		this.descrição = descrição;
 		this.preço = preço;
 	}
+	
+	
+	public String toString() {
+		return nome + " - " + descrição + " - " + "R$" + preço;
+	}
+	
+	public String listarToString() {
+		return nome + " - " + descrição + " - " + "R$" + preço + " | ";
+	}
+	
+	public void editar(double preço) {
+		this.preço = preço;
+	}
+	
 }

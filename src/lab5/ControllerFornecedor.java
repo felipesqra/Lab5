@@ -56,5 +56,16 @@ public class ControllerFornecedor {
 		}
 	}
 	
+	public String consultaProdutoFornecedor(String nomeFornecedor) {
+		return fornecedores.get(nomeFornecedor).listarProdutos();
+	}
 	
+	public String listarTodosProdutosDosFornecedores() {
+		String string = "";
+		
+		for(Fornecedor fornecedor: fornecedores.values()) {
+			string += fornecedor.listarProdutos();
+		}
+		return string;
+	}
 }
