@@ -1,5 +1,7 @@
 package lab5;
 
+import easyaccept.EasyAccept;
+
 /**
  * Fachada criada para se comunicar com os controllers de cada classe.
  * @author Felipe de Souza Siqueira - 119110399
@@ -15,6 +17,11 @@ public class Facade {
 	 */
 	private ControllerCliente controllerCliente;
 	
+	public Facade() {
+		this.controllerCliente = new ControllerCliente();
+		this.controllerFornecedor = new ControllerFornecedor();
+	}
+	
 	
 	/**
 	 * Método utilizado para cadastrar um Fornecedor.
@@ -23,7 +30,7 @@ public class Facade {
 	 * @param email Especifica o email do fornecedor
 	 * @param telefone Especifíca o telefone do fornecedor 
 	 */
-	public void cadastraFornecedor(String nome, String email, String telefone) {
+	public void adicionaFornecedor(String nome, String email, String telefone) {
 		this.controllerFornecedor.cadastrarFornecedor(nome, email, telefone);
 	}
 	
@@ -51,7 +58,7 @@ public class Facade {
 	 * @param email Especifíca o novo email que será utilizado pelo fornecedor
 	 * @param telefone Especifíca o novo telefone que será utilizado pelo fornecedor
 	 */
-	public void editarFornecedor(String nome, String email, String telefone) {
+	public void editaFornecedor(String nome, String email, String telefone) {
 		this.controllerFornecedor.editarFornecedor(nome, email, telefone);
 	}
 	
@@ -60,7 +67,7 @@ public class Facade {
 	 * 
 	 * @param nome Nome do fornecedor que será exluído
 	 */
-	public void removerFornecedor(String nome) {
+	public void removeFornecedor(String nome) {
 		this.controllerFornecedor.removerFornecedor(nome);
 	}
 	
@@ -88,8 +95,8 @@ public class Facade {
 	 * @param email Indica o email do cliente
 	 * @param localizacao Indica a localização do cliente
 	 */
-	public void cadastrarCliente(String cpf, String nome, String email, String localizacao) {
-		this.controllerCliente.cadastrarCliente(cpf, nome, email, localizacao);
+	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
+		return this.controllerCliente.cadastrarCliente(cpf, nome, email, localizacao);
 	}
 	
 	/**
@@ -112,7 +119,7 @@ public class Facade {
 	 * Remove um cliente cadastrado
 	 * @param cpf Específica qual cliente será removido.
 	 */
-	public void removerCliente(String cpf) {
+	public void removeCliente(String cpf) {
 		this.controllerCliente.removerCliente(cpf);
 	}
 	
@@ -124,7 +131,14 @@ public class Facade {
 	 * @param localizacao Indica a nova localização do cliente
 	 * @param email Indica o novo email do cliente
 	 */
-	public void editarCliente(String cpf, String nome, String localizacao, String email) {
+	public void editaCliente(String cpf, String nome, String localizacao, String email) {
 		this.controllerCliente.editarCliente(cpf, nome, localizacao, email);
 	}
+	
+	public static void main(String[] args) {
+		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt"
+	}; EasyAccept.main(args);
+	}
+	
+	
 }

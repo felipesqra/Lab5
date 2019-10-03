@@ -30,17 +30,15 @@ public class ControllerCliente {
 	 * @return Retorna uma String contendo o CPF do cliente
 	 */
 	public String cadastrarCliente(String cpf, String nome, String email, String localizacao) {
-		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
-		Util.validandoNull(email, "Não é permitido um email nulo");
-		Util.validaVazia(email, "Não é permitido um email vazio");
-		Util.validandoNull(localizacao, "Não é permitido uma localização nula");
-		Util.validaVazia(localizacao, "Não é permitido uma localização vazia");
 		Cliente cliente = new Cliente(cpf, nome, email, localizacao);
 		
+		if(clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
+		}
 		this.clientes.put(cpf, cliente);
 		
 		return cliente.getCpf();
+
 	}
 	
 	/**

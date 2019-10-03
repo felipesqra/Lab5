@@ -34,14 +34,17 @@ public class Cliente {
 	 * @param localizacao Especifíca a localização do cliente.
 	 */
 	public Cliente(String cpf, String nome, String email, String localizacao) {
-		Util.validandoNull(cpf, "Não é permitido um cpf nulo");
-		Util.validaVazia(cpf, "Não é permitido um cpf vazio");
-		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
-		Util.validandoNull(email, "Não é permitido um email nulo");
-		Util.validaVazia(email, "Não é permitido um email vazio");
-		Util.validandoNull(localizacao, "Não é permitido uma localização nula");
-		Util.validaVazia(localizacao, "Não é permitido uma localização vazia");
+		Util.validandoNull(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
+		Util.validaVazia(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
+		Util.validandoNull(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		Util.validandoNull(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		Util.validaVazia(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		Util.validandoNull(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		Util.validaVazia(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		if(cpf.length() > 11 || cpf.length() < 11 ) {
+			throw new NullPointerException("Erro no cadastro do cliente: cpf invalido.");
+		}
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
