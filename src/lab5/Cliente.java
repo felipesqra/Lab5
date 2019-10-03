@@ -1,42 +1,110 @@
 package lab5;
 
+/**
+ * Simula o cliente de um programa
+ * 
+ * @author Felipe de Souza Siqueira - 119110399
+ *
+ */
 public class Cliente {
-	
+	/**
+	 * CPF dp cliente
+	 */
 	private String cpf;
+	/**
+	 * Nome do cliente
+	 */
 	private String nome;
+	/**
+	 * Email do cliente
+	 */
 	private String email;
+	/**
+	 * Localização do cliente
+	 */
 	private String localizacao;
 	
 	
+	/**
+	 * Contrutor do cliente
+	 * 
+	 * @param cpf Especifíca o CPF do cliente
+	 * @param nome Especifíca o Nome do cliente
+	 * @param email Especifíca o email do cliente
+	 * @param localizacao Especifíca a localização do cliente.
+	 */
 	public Cliente(String cpf, String nome, String email, String localizacao) {
+		Util.validandoNull(cpf, "Não é permitido um cpf nulo");
+		Util.validaVazia(cpf, "Não é permitido um cpf vazio");
+		Util.validandoNull(nome, "Não é permitido um nome nulo");
+		Util.validaVazia(nome, "Não é permitido um nome vazio");
+		Util.validandoNull(email, "Não é permitido um email nulo");
+		Util.validaVazia(email, "Não é permitido um email vazio");
+		Util.validandoNull(localizacao, "Não é permitido uma localização nula");
+		Util.validaVazia(localizacao, "Não é permitido uma localização vazia");
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
 		this.localizacao = localizacao;
 	}
 	
+	/**
+	 * Retorna o CPF do cliente
+	 * 
+	 * @return Retorna em forma de String o CPF do cliente
+	 */
 	public String getCpf() {
 		return cpf;
 	}
 	
+	/**
+	 * Retorna uma String com o nome, a localização e o email do cliente
+	 * 
+	 * @return Retorna uma String com o nome, a localização e o email do cliente
+	 */
 	public String toString() {
 		return this.nome + " - " + this.localizacao + " - " + this.email + "\n";
 	}
 	
+	/**
+	 * Retorna uma String com o nome, a localização e o email do cliente
+	 *  
+	 * @return Retorna uma String com o nome, a localização e o email do cliente
+	 */
 	public String toStringListar() {
 		return this.nome + " - " + this.localizacao + " - " + this.email + " | ";
 	}
 	
+	/**
+	 * Altera o nome do cliente de acordo com o parâmetro passado
+	 * 
+	 * @param nome Especifíca o novo nome do cliente
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	/**
+	 * Altera o email do cliente de acordo com o parâmetro passado
+	 * 
+	 * @param email Especifíca o novo email do cliente
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/**
+	 * Altera a localização do cliente
+	 * 
+	 * @param localizacao Especifíca a localização do cliente
+	 */
 	public void setLocalizacao(String localizacao) {
 		this.localizacao = localizacao;
 	}
 	
+	/**
+	 * Gera uma representação em inteiro para cada objeto criado
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -46,6 +114,9 @@ public class Cliente {
 		return result;
 	}
 
+	/**
+	 * Compara objetos e retorna boolean
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

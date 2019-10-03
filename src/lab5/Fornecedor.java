@@ -2,12 +2,36 @@ package lab5;
 
 import java.util.HashMap;
 
+/**
+ * Simula o fornecedor cadastrado no programa
+ * 
+ * @author Felipe de Souza Siqueira - 119110399
+ */
 public class Fornecedor {
+	/**
+	 * Especifíca o nome do fornecedor
+	 */
 	private String nome;
+	/**
+	 * Especifíca o email do cliente
+	 */
 	private String email;
+	/**
+	 * Especifíca o telefone do cliente
+	 */
 	private String telefone;
+	/**
+	 * Mapa contendo todos os produtos de um fornecedor
+	 */
 	private HashMap<String, Produto> produtos;
 	
+	/**
+	 * Construtor do fornecedor
+	 * 
+	 * @param nome Nome do fornecedor
+	 * @param email Email do fornecedor
+	 * @param telefone Telefone do Fornecedor
+	 */
 	public Fornecedor(String nome, String email, String telefone) {
 		this.email = email;
 		this.nome = nome;
@@ -15,7 +39,14 @@ public class Fornecedor {
 		this.produtos = new HashMap<>();
 	}
 	
-	public void addProduto(String nome, String descrição, double preço) {
+	/**
+	 * Adiciona um produto ao catálogo do fornecedor
+	 * 
+	 * @param nome nome do produto
+	 * @param descrição Descrição do produto
+	 * @param preço Preço do produto
+	 */
+	public void addProduto(String nome, String descrição, String preço) {
 		Produto produto = new Produto(nome, descrição, preço);
 		
 		String chave = nome+descrição;
@@ -27,23 +58,49 @@ public class Fornecedor {
 		
 	}
 	
+	/**
+	 * Retorna o nome do fornecedor
+	 * 
+	 * @return Retorna uma String contendo o nome do fornecedor
+	 */
 	public String getNome() {
 		return nome;
 	}
 	
+	/**
+	 * Retorna uma String contendo o nome, o email e o telefone do fornecedor
+	 * 
+	 * @return Retorna uma String contendo o nome, o email e o telefone do fornecedor
+	 */
 	public String toString() {
 		return this.nome + " - " + this.email + " - " + this.telefone;
 	}
 	
+	/**
+	 * Retorna uma String contendo o nome, o email e o telefone do fornecedor
+	 * 
+	 * @return Retorna uma String contendo o nome, o email e o telefone do fornecedor
+	 */
 	public String listarToString() {
 		return this.nome + " - " + this.email + " - " + this.telefone + " | ";
 	}
 	
+	/**
+	 * Edita as informações dde um fornecedor existente
+	 * 
+	 * @param email Novo email do fornecedor
+	 * @param telefone Novo telefone do fornecedor
+	 */
 	public void editarFornecedor(String email, String telefone) {
 		this.email = email;
 		this.telefone = telefone;
 	}
 	
+	/**
+	 * Apresenta uma lista com todos od produtos do fornecedor
+	 * 
+	 * @return Apresenta uma String contendo uma lista com todos os produtos do fornecedor
+	 */
 	public String listarProdutos() {
 		String string = "";
 		
@@ -53,19 +110,31 @@ public class Fornecedor {
 		return string;
 	}
 	
-	public void editarProduto(String nome, double preço) {
+	/**
+	 * Edita as informações do produto de um fornecedor.
+	 * 
+	 * @param nome Nome do produto
+	 * @param preço Preço novo do produto
+	 */
+	public void editarProduto(String nome, String preço) {
 		if(this.produtos.containsKey(nome)) {
 			this.produtos.get(nome).editar(preço);
 		}
 	}
 	
+	/**
+	 * Remove o produto de um fornecedor
+	 * @param nome Específica qual o produto que será removido
+	 */
 	public void removerProduto(String nome) {
 		
 		if(this.produtos.containsKey(nome)) {
 			this.produtos.remove(nome);
 		}
 	}
-
+	/**
+	 * Gera uma representação em inteiro do objeto
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,7 +143,9 @@ public class Fornecedor {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
-
+	/**
+	 * Compara dois objetos
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

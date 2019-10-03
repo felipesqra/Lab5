@@ -1,30 +1,71 @@
 package lab5;
 
+/**
+ * Classe representando um produto
+ * 
+ * @author Felipe de Souza Siqueira - 119110399
+ */
 public class Produto {
-	
-
+	/**
+	 * Nome do produto
+	 */
 	private String nome;
+	/**
+	 * Descrição do produto
+	 */
 	private String descrição;
-	private double preço;
+	/**
+	 * Preço do produto
+	 */
+	private String preço;
 	
-	public Produto(String nome, String descrição, double preço) {
+	/**
+	 * Construtor do produto
+	 * 
+	 * @param nome Nome do produto
+	 * @param descrição DEscrição do produto
+	 * @param preço Preço do produto
+	 */
+	public Produto(String nome, String descrição, String preço) {
+		Util.validandoNull(nome, "Não é permitido um nome nulo");
+		Util.validaVazia(nome, "Não é permitido um nome vazio");
+		Util.validandoNull(descrição, "Não é permitido uma descrição nula");
+		Util.validaVazia(descrição, "Não é permitido uma descrição vazia");
+		Util.validandoNull(preço, "Não é permitido um preço nulo");
+		Util.validaVazia(preço, "Não é permitido um preço vazio");
 		this.nome = nome;
 		this.descrição = descrição;
 		this.preço = preço;
 	}
-
+	
+	/**
+	 * Retorna uma String com o nome, a descrição e o preço do produto
+	 */
 	public String toString() {
 		return nome + " - " + descrição + " - " + "R$ " + preço;
 	}
-	
+
+	/**
+	 * Retorna uma String com o nome, a descrição e o preço do produto
+	 */
 	public String listarToString() {
 		return nome + " - " + descrição + " - " + "R$ " + preço + " | ";
 	}
 	
-	public void editar(double preço) {
+	/**
+	 * Edita o preço do produto
+	 * 
+	 * @param preço Novo preço do produto
+	 */
+	public void editar(String preço) {
+		Util.validandoNull(preço, "Não é permitido um preço nulo");
+		Util.validaVazia(preço, "Não é permitido um preço vazio");
 		this.preço = preço;
 	}
 	
+	/**
+	 * Gera uma representação em inteiro para cada objeto instanciado
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,7 +75,9 @@ public class Produto {
 		return result;
 	}
 
-
+	/**
+	 * Compara objetos e retorna um boolean
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
