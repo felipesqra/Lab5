@@ -17,6 +17,9 @@ public class Facade {
 	 */
 	private ControllerCliente controllerCliente;
 	
+	/**
+	 * Construtor do facade
+	 */
 	public Facade() {
 		this.controllerCliente = new ControllerCliente();
 		this.controllerFornecedor = new ControllerFornecedor();

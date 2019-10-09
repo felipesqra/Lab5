@@ -1,12 +1,14 @@
 package lab5;
 
+
+
 /**
  * Simula o cliente de um programa
  * 
  * @author Felipe de Souza Siqueira - 119110399
  *
  */
-public class Cliente {
+public class Cliente{
 	/**
 	 * CPF dp cliente
 	 */
@@ -67,15 +69,6 @@ public class Cliente {
 	 */
 	public String toString() {
 		return this.nome + " - " + this.localizacao + " - " + this.email;
-	}
-	
-	/**
-	 * Retorna uma String com o nome, a localização e o email do cliente
-	 *  
-	 * @return Retorna uma String com o nome, a localização e o email do cliente
-	 */
-	public String toStringListar() {
-		return this.nome + " - " + this.localizacao + " - " + this.email + " | ";
 	}
 	
 	/**

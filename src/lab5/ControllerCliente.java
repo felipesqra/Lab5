@@ -1,6 +1,9 @@
 package lab5;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -72,10 +75,20 @@ public class ControllerCliente {
 	public String listarClientes() {
 		String string = "";
 		
-		for(Cliente cliente: this.clientes.values()) {
-			string += cliente.toStringListar();
-		}
+		List<String> lista = new ArrayList<>();
 
+		for(Cliente cliente: this.clientes.values()) {
+			lista.add(cliente.toString());
+		}
+		Collections.sort(lista);
+		for(int i = 0; i<lista.size(); i++) {
+			if(i != lista.size()-1) {
+				string += lista.get(i) + " | ";
+			}else { 
+				string += lista.get(i);
+			}
+		
+		}
 		
 		return string;
 	}
@@ -134,6 +147,4 @@ public class ControllerCliente {
 			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao existe.");
 		}
 	}
-	
-	
 }
