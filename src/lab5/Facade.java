@@ -30,25 +30,25 @@ public class Facade {
 	 * @param email Especifica o email do fornecedor
 	 * @param telefone Especifíca o telefone do fornecedor 
 	 */
-	public void adicionaFornecedor(String nome, String email, String telefone) {
-		this.controllerFornecedor.cadastrarFornecedor(nome, email, telefone);
+	public String adicionaFornecedor(String nome, String email, String telefone) {
+		return this.controllerFornecedor.cadastrarFornecedor(nome, email, telefone);
 	}
 	
 	/**
 	 * Método utilizado para exibir um fornecedor específico.
 	 * 
-	 * @param nome Especifíca o nome do fornecedor que se ddeseja exibir.
+	 * @param nome Especifíca o nome do fornecedor que se deseja exibir.
 	 */
-	public void exibeFornecedor(String nome) {
-		this.controllerFornecedor.exibeFornecedor(nome);
+	public String exibeFornecedor(String nome) {
+		return this.controllerFornecedor.exibeFornecedor(nome);
 	}
 	
 	/**
 	 * Método utilizado para retornar uma lista com todos os fornecedores cadastrados.
 	 * 
 	 */
-	public void listaFornecedores() {
-		this.controllerFornecedor.listarFornecedores();
+	public String exibeFornecedores() {
+		return this.controllerFornecedor.listarFornecedores();
 	}
 	
 	/**
@@ -58,8 +58,8 @@ public class Facade {
 	 * @param email Especifíca o novo email que será utilizado pelo fornecedor
 	 * @param telefone Especifíca o novo telefone que será utilizado pelo fornecedor
 	 */
-	public void editaFornecedor(String nome, String email, String telefone) {
-		this.controllerFornecedor.editarFornecedor(nome, email, telefone);
+	public void editaFornecedor(String nome, String atributo, String novoValor) {
+		this.controllerFornecedor.editarFornecedor(nome, atributo, novoValor);
 	}
 	
 	/**
@@ -72,19 +72,50 @@ public class Facade {
 	}
 	
 	/**
+	 * Método para a adição de novos produtos nos fornecedores.
+	 * 
+	 * @param fornecedor Fornecedor que receberá o novo produto
+	 * @param nome Nome do produto
+	 * @param descricao Descrição do produto
+	 * @param preco Preço do produto
+	 */
+	public void adicionaProduto(String fornecedor, String nome, String descricao, double preco) {
+		this.controllerFornecedor.addProduto(fornecedor, nome, descricao, preco);
+	}
+	
+	/**
+	 * Método exibe as informações do produto pesquisado
+	 * 
+	 * @param nome Nome do produto
+	 * @param descricao Descrição do produto
+	 * @param fornecedor Nome do fornecedor
+	 * @return Retorna uma String contendo as informações do produto
+	 */
+	public String exibeProduto(String nome, String descricao, String fornecedor) {
+		return this.controllerFornecedor.exibeProduto(nome, descricao, fornecedor);
+	}
+
+	public void editaProduto(String nome, String descricao, String fornecedor, double novoPreco) {
+		this.controllerFornecedor.editaProduto(nome, descricao, fornecedor, novoPreco);
+	}
+	/**
 	 * Apresenta uma lista com todos os produtos de um fornecedor
 	 * 
 	 * @param nomeFornecedor Especifíca o fornecedor que terá seus produtos apresentados.
 	 */
-	public void consultaProdutoFornecedor(String nomeFornecedor) {
-		this.controllerFornecedor.consultaProdutoFornecedor(nomeFornecedor);
+	public String exibeProdutosFornecedor(String nomeFornecedor) {
+		Util.validandoNull(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		return this.controllerFornecedor.consultaProdutoFornecedor(nomeFornecedor);
 	}
+	
+	
 	
 	/**
 	 * Apresenta uma lista com todos os produtos de todos os fornecedores
 	 */
-	public void listarTodosProdutosDosFornecedores() {
-		this.controllerFornecedor.listarTodosProdutosDosFornecedores();
+	public String exibeProdutos() {
+		return this.controllerFornecedor.listarTodosProdutosDosFornecedores();
 	}
 	
 	/**
@@ -104,15 +135,15 @@ public class Facade {
 	 * 
 	 * @param cpf Indica qual cliente terá suas informações exibidas
 	 */
-	public void exibirCliente(String cpf) {
-		this.controllerCliente.exibirCliente(cpf);
+	public String exibeCliente(String cpf) {
+		return this.controllerCliente.exibeCliente(cpf);
 	}
 	
 	/**
 	 * Lista todos os cliente cadastrados
 	 */
-	public void listarClientes() {
-		this.controllerCliente.listarClientes();
+	public String exibeClientes() {
+		return this.controllerCliente.listarClientes();
 	}
 	
 	/**
@@ -131,12 +162,22 @@ public class Facade {
 	 * @param localizacao Indica a nova localização do cliente
 	 * @param email Indica o novo email do cliente
 	 */
-	public void editaCliente(String cpf, String nome, String localizacao, String email) {
-		this.controllerCliente.editarCliente(cpf, nome, localizacao, email);
+	public void editaCliente(String cpf, String atributo, String novoValor) {
+		this.controllerCliente.editarCliente(cpf, atributo, novoValor);
+	}
+	/**
+	 * Remove o produto de um determinado Fornecedor
+	 * @param nome NOme do produto
+	 * @param descricao descricao do produto
+	 * @param fornecedor Fornecedor que terá seu produto removido
+	 */
+	public void removeProduto(String nome, String descricao, String fornecedor) {
+		this.controllerFornecedor.removeProduto(nome, descricao, fornecedor);
 	}
 	
 	public static void main(String[] args) {
-		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt"
+		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt", "TestesEasy/use_case_3.txt", "TestesEasy/use_case_4.txt",
+				"TestesEasy/use_case_5.txt", "TestesEasy/use_case_6.txt"
 	}; EasyAccept.main(args);
 	}
 	

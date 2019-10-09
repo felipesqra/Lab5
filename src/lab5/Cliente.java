@@ -43,7 +43,7 @@ public class Cliente {
 		Util.validandoNull(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
 		Util.validaVazia(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
 		if(cpf.length() > 11 || cpf.length() < 11 ) {
-			throw new NullPointerException("Erro no cadastro do cliente: cpf invalido.");
+			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
 		}
 		this.cpf = cpf;
 		this.nome = nome;
@@ -57,7 +57,7 @@ public class Cliente {
 	 * @return Retorna em forma de String o CPF do cliente
 	 */
 	public String getCpf() {
-		return cpf;
+		return this.cpf;
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class Cliente {
 	 * @return Retorna uma String com o nome, a localização e o email do cliente
 	 */
 	public String toString() {
-		return this.nome + " - " + this.localizacao + " - " + this.email + "\n";
+		return this.nome + " - " + this.localizacao + " - " + this.email;
 	}
 	
 	/**

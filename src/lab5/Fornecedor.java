@@ -33,6 +33,12 @@ public class Fornecedor {
 	 * @param telefone Telefone do Fornecedor
 	 */
 	public Fornecedor(String nome, String email, String telefone) {
+		Util.validandoNull(nome, "Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
+		Util.validandoNull(email, "Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.");
+		Util.validaVazia(email, "Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.");
+		Util.validandoNull(telefone, "Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.");
+		Util.validaVazia(telefone, "Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.");
 		this.email = email;
 		this.nome = nome;
 		this.telefone = telefone;
@@ -46,16 +52,31 @@ public class Fornecedor {
 	 * @param descrição Descrição do produto
 	 * @param preço Preço do produto
 	 */
-	public void addProduto(String nome, String descrição, String preço) {
+	public void addProduto(String nome, String descrição, double preço) {
 		Produto produto = new Produto(nome, descrição, preço);
 		
 		String chave = nome+descrição;
 		
-		if(!produtos.containsKey(chave)) {
-			produtos.put(chave, produto);
+		if(produtos.containsKey(chave)) {
+			throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 		}
+		produtos.put(chave, produto);
 		
+	}
+	
+	/**
+	 * Edita o preço de um produto
+	 * @param nome Nome do produto
+	 * @param descricao Descrição do produto
+	 * @param novoPreco Novo preço do produto
+	 */
+	public void editaProduto(String nome, String descricao, double novoPreco) {
 		
+		String string = nome + descricao;
+		if(!this.produtos.containsKey(string)) {
+			throw new IllegalArgumentException("Erro na edicao de produto: produto nao existe.");
+		}
+		this.produtos.get(string).editar(novoPreco);
 	}
 	
 	/**
@@ -66,6 +87,7 @@ public class Fornecedor {
 	public String getNome() {
 		return nome;
 	}
+	
 	
 	/**
 	 * Retorna uma String contendo o nome, o email e o telefone do fornecedor
@@ -91,9 +113,13 @@ public class Fornecedor {
 	 * @param email Novo email do fornecedor
 	 * @param telefone Novo telefone do fornecedor
 	 */
-	public void editarFornecedor(String email, String telefone) {
-		this.email = email;
-		this.telefone = telefone;
+	public void editarFornecedor(String atributo, String novoValor) {
+		if(atributo.equals("email")) {
+			this.email = novoValor;
+		}
+		if(atributo.equals("telefone")) {
+			this.telefone = novoValor;
+		}
 	}
 	
 	/**
@@ -116,7 +142,7 @@ public class Fornecedor {
 	 * @param nome Nome do produto
 	 * @param preço Preço novo do produto
 	 */
-	public void editarProduto(String nome, String preço) {
+	public void editarProduto(String nome, double preço) {
 		if(this.produtos.containsKey(nome)) {
 			this.produtos.get(nome).editar(preço);
 		}
@@ -126,11 +152,13 @@ public class Fornecedor {
 	 * Remove o produto de um fornecedor
 	 * @param nome Específica qual o produto que será removido
 	 */
-	public void removerProduto(String nome) {
+	public void removerProduto(String nome, String descricao) {
+		String string = nome + descricao;
 		
-		if(this.produtos.containsKey(nome)) {
-			this.produtos.remove(nome);
+		if(!this.produtos.containsKey(string)) {
+			throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 		}
+		this.produtos.remove(string);
 	}
 	/**
 	 * Gera uma representação em inteiro do objeto
@@ -166,6 +194,17 @@ public class Fornecedor {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	public String exibeProduto(String nome, String descricao) {
+		
+		
+		String string = nome+descricao;
+		
+		if(!this.produtos.containsKey(string)) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
+		}
+		return this.produtos.get(string).toString();
 	}
 	
 	

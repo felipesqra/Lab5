@@ -17,7 +17,7 @@ public class Produto {
 	/**
 	 * Preço do produto
 	 */
-	private String preço;
+	private double preço;
 	
 	/**
 	 * Construtor do produto
@@ -26,13 +26,8 @@ public class Produto {
 	 * @param descrição DEscrição do produto
 	 * @param preço Preço do produto
 	 */
-	public Produto(String nome, String descrição, String preço) {
-		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
-		Util.validandoNull(descrição, "Não é permitido uma descrição nula");
-		Util.validaVazia(descrição, "Não é permitido uma descrição vazia");
-		Util.validandoNull(preço, "Não é permitido um preço nulo");
-		Util.validaVazia(preço, "Não é permitido um preço vazio");
+	public Produto(String nome, String descrição, double preço) {
+
 		this.nome = nome;
 		this.descrição = descrição;
 		this.preço = preço;
@@ -42,14 +37,14 @@ public class Produto {
 	 * Retorna uma String com o nome, a descrição e o preço do produto
 	 */
 	public String toString() {
-		return nome + " - " + descrição + " - " + "R$ " + preço;
+		return String.format("%s - %s - R$%.2f", nome, descrição, preço);
 	}
 
 	/**
 	 * Retorna uma String com o nome, a descrição e o preço do produto
 	 */
 	public String listarToString() {
-		return nome + " - " + descrição + " - " + "R$ " + preço + " | ";
+		return nome + " - " + descrição + " - " + "R$" + preço + " | ";
 	}
 	
 	/**
@@ -57,9 +52,7 @@ public class Produto {
 	 * 
 	 * @param preço Novo preço do produto
 	 */
-	public void editar(String preço) {
-		Util.validandoNull(preço, "Não é permitido um preço nulo");
-		Util.validaVazia(preço, "Não é permitido um preço vazio");
+	public void editar(double preço) {
 		this.preço = preço;
 	}
 	

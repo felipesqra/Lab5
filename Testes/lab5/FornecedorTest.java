@@ -17,13 +17,13 @@ class FornecedorTest {
 	void test() {
 		this.fornecedor = new Fornecedor("Felipe", "felipe@ccc.com", "7499996565");
 		this.fornecedor2 = new Fornecedor("Fornecedor", "email.com", "7412341234");
-		this.fornecedor.addProduto("Pão", "Feito no forno", "2.5");
-		this.fornecedor2.addProduto("Pão", "Feito na brasa", "4");
+		this.fornecedor.addProduto("Pão", "Feito no forno", 2.5);
+		this.fornecedor2.addProduto("Pão", "Feito na brasa", 4);
 
 	}
 	@Test
 	void testaddProduto() {
-		this.fornecedor.addProduto("Pão", "Feito no forno", "2.5");
+		this.fornecedor.addProduto("Pão", "Feito no fornão", 2.5);
 	}
 	
 	
@@ -44,7 +44,7 @@ class FornecedorTest {
 	
 	@Test
 	void testlistarProdutos() {
-		assertEquals(fornecedor.listarProdutos(), "Felipe - Pão - Feito no forno - R$ 2.5 | ");
+		assertEquals(fornecedor.listarProdutos(), "Felipe - Pão - Feito no forno - R$2.5 | ");
 	}
 	
 	@Test
@@ -53,11 +53,11 @@ class FornecedorTest {
 	}
 	@Test
 	void testeditarProduto() {
-		fornecedor2.editarProduto("Pão", "3.6");
+		fornecedor2.editarProduto("Pão", 3.6);
 	}
 	@Test
 	void testremoverProduto() {
-		fornecedor.removerProduto("Pão");
+		fornecedor.removerProduto("Pão", "Feito no forno");
 	}
 	
 }

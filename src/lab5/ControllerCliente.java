@@ -1,5 +1,7 @@
 package lab5;
+
 import java.util.HashMap;
+
 
 /**
  * Controller da classe Cliente
@@ -10,7 +12,8 @@ public class ControllerCliente {
 	/**
 	 * Mapa contendo os clientes cadastrados
 	 */
-	private HashMap<String, Cliente> clientes;
+	private HashMap<String,Cliente> clientes;
+
 	
 	/**
 	 * Construtor do ControllerCliente
@@ -48,15 +51,16 @@ public class ControllerCliente {
 	 * 
 	 * @return Retorna uma String contendo as informações do cliente
 	 */
-	public String exibirCliente(String cpf) {
-		Util.validandoNull(cpf, "Não é permitido um CPF nulo");
-		Util.validaVazia(cpf, "Não é permitido um CPF vazio");
+	public String exibeCliente(String cpf) {
+		Util.validandoNull(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
+		Util.validaVazia(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
 		String string = "";
 		
-		if(clientes.containsKey(cpf)) {
-			string += clientes.get(cpf).toString();
+		if(!clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro na exibicao do cliente: cliente nao existe.");
 		}
 		
+		string += clientes.get(cpf).toString();
 		return string;
 	}
 	
@@ -71,6 +75,7 @@ public class ControllerCliente {
 		for(Cliente cliente: this.clientes.values()) {
 			string += cliente.toStringListar();
 		}
+
 		
 		return string;
 	}
@@ -81,11 +86,13 @@ public class ControllerCliente {
 	 * @param cpf CPF do cliente
 	 */
 	public void removerCliente(String cpf) {
-		Util.validandoNull(cpf, "Não é permitido um CPF nulo");
-		Util.validaVazia(cpf, "Não é permitido um CPF vazio");
-		if(this.clientes.containsKey(cpf)){
-			this.clientes.remove(cpf);
+		Util.validandoNull(cpf, "Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
+		Util.validaVazia(cpf, "Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
+		if(!this.clientes.containsKey(cpf)){
+			throw new IllegalArgumentException("Erro na remocao do cliente: cliente nao existe.");
 		}
+		
+		this.clientes.remove(cpf);
 		
 	}
 	
@@ -97,21 +104,35 @@ public class ControllerCliente {
 	 * @param localizacao Localização do cliente
 	 * @param email Email do cliente
 	 */
-	public void editarCliente(String cpf, String nome, String localizacao, String email) {
-		Util.validandoNull(cpf, "Não é permitido um CPF nulo");
-		Util.validaVazia(cpf, "Não é permitido um CPF vazio");
-		Util.validandoNull(localizacao, "Não é permitido um localização nulo");
-		Util.validaVazia(localizacao, "Não é permitido um localização vazio");
-		Util.validandoNull(email, "Não é permitido um email nulo");
-		Util.validaVazia(email, "Não é permitido um email vazio");
-		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
+	public void editarCliente(String cpf, String atributo, String novoValor) {
+		Util.validandoNull(cpf, "Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.");
+		Util.validaVazia(cpf, "Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.");
+		Util.validandoNull(atributo, "Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
+		Util.validaVazia(atributo, "Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
+		Util.validandoNull(novoValor, "Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
+		Util.validaVazia(novoValor, "Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
+		
+		if(!clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro na edicao do cliente: cliente nao existe.");
+		}
 		
 		Cliente cliente = this.clientes.get(cpf);
 		 
-		 cliente.setNome(nome);
-		 cliente.setEmail(email);
-		 cliente.setLocalizacao(localizacao);
+		if(atributo.equals("nome")) {
+			cliente.setNome(novoValor);
+		}
+		if(atributo.equals("email")) {
+			cliente.setEmail(novoValor);
+		}
+		if(atributo.equals("localizacao")) {
+			cliente.setLocalizacao(novoValor);
+		}
+		if(atributo.equals("cpf")) {
+			throw new IllegalArgumentException("Erro na edicao do cliente: cpf nao pode ser editado.");
+		}
+		if(!atributo.equals("nome") & !atributo.equals("email") & !atributo.equals("localizacao")) {
+			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao existe.");
+		}
 	}
 	
 	

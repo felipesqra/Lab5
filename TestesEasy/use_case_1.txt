@@ -2,7 +2,7 @@
 
 ## Cadastrando clientes ##
 
-cliente1=adicionaCliente cpf="00023827490" nome="Vicator Emanuel" email="vitao@ccc.ufcg.edu.br" localizacao="Labarc"
+cliente1=adicionaCliente cpf="00023827490" nome="Victor Emanuel" email="vitao@ccc.ufcg.edu.br" localizacao="Labarc"
 cliente2=adicionaCliente cpf="94412783134" nome="Wilson Andre" email="wilson_andre@ccc.ufcg.edu.br" localizacao="Embedded"
 cliente3=adicionaCliente cpf="19418510068" nome="Amigao Fernandes" email="amigao_fernandes@ccc.ufcg.edu.br" localizacao="LSD"
 cliente4=adicionaCliente cpf="64269141198" nome="Ana Amari" email="ana_amari@ccc.ufcg.edu.br" localizacao="SPG"

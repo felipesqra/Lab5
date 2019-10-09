@@ -31,20 +31,17 @@ public class ControllerFornecedor {
 	 * @return Retorna uma String contendo o nome do fornecedor
 	 */
 	public String cadastrarFornecedor(String nome, String email, String telefone) {
-		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
-		Util.validandoNull(email, "Não é permitido um email nulo");
-		Util.validaVazia(email, "Não é permitido um email vazio");
-		Util.validandoNull(telefone, "Não é permitido um telefone nulo");
-		Util.validaVazia(telefone, "Não é permitido um telefone vazio");
 		Fornecedor fornecedor = new Fornecedor(nome, email, telefone);
 		
 		String string = "";
-		
-		if(!fornecedores.containsKey(nome)) {
-			fornecedores.put(nome, fornecedor);
-			string += nome;
+		if(fornecedores.containsKey(nome)) {
+			throw new IllegalArgumentException("Erro no cadastro de fornecedor: fornecedor ja existe.");
 		}
+		
+		
+		fornecedores.put(nome, fornecedor);
+		string += nome;
+		
 		
 		return string;
 	}
@@ -58,12 +55,14 @@ public class ControllerFornecedor {
 	 */
 	public String exibeFornecedor(String nome) {
 		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
-		String string = "";
+
 		
-		if(fornecedores.containsKey(nome)) {
-			string += fornecedores.get(nome).toString();
+		if(!fornecedores.containsKey(nome)) {
+			throw new IllegalArgumentException("Erro na exibicao do fornecedor: fornecedor nao existe.");
+			
 		}
+		String string = "";
+		string += fornecedores.get(nome).toString();
 		
 		return string;
 	}
@@ -91,12 +90,30 @@ public class ControllerFornecedor {
 	 * @param email Novo email do fornecedor
 	 * @param telefone Novo telefone do fornecedor
 	 */
-	public void editarFornecedor(String nome, String email, String telefone) {
-		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
+	public void editarFornecedor(String nome, String atributo, String novoValor) {
+		Util.validandoNull(nome, "Erro na edicao do fornecedor: nome nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro na edicao do fornecedor: nome nao pode ser vazio ou nulo.");
+		Util.validandoNull(atributo, "Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.");
+		Util.validaVazia(atributo, "Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.");
+		Util.validandoNull(novoValor, "Erro na edicao do fornecedor: novo valor nao pode ser vazio ou nulo.");
+		Util.validaVazia(novoValor, "Erro na edicao do fornecedor: novo valor nao pode ser vazio ou nulo.");
+		
+		
+		if(atributo.equals("nome")) {
+			throw new IllegalArgumentException("Erro na edicao do fornecedor: nome nao pode ser editado.");
+		}
+		
+		if(!atributo.equals("nome") & !atributo.equals("email") & !atributo.equals("telefone")) {
+			throw new IllegalArgumentException("Erro na edicao do fornecedor: atributo nao existe.");
+		}
+		
+		if(!this.fornecedores.containsKey(nome)) {
+			throw new IllegalArgumentException("Erro na edicao do fornecedor: fornecedor nao existe.");
+		}
+		
 		Fornecedor fornecedor = this.fornecedores.get(nome);
 		
-		fornecedor.editarFornecedor(email, telefone);
+		fornecedor.editarFornecedor(atributo, novoValor);
 	}
 	
 	/**
@@ -105,13 +122,64 @@ public class ControllerFornecedor {
 	 * @param nome Determina qual o fornecedor que será removido.
 	 */
 	public void removerFornecedor(String nome) {
-		Util.validandoNull(nome, "Não é permitido um nome nulo");
-		Util.validaVazia(nome, "Não é permitido um nome vazio");
-		if(fornecedores.containsKey(nome)) {
-			fornecedores.remove(nome);
+		Util.validandoNull(nome, "Erro na remocao do fornecedor: nome do fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro na remocao do fornecedor: nome do fornecedor nao pode ser vazio ou nulo.");
+		if(!fornecedores.containsKey(nome)) {
+			throw new IllegalArgumentException("Erro na remocao do fornecedor: fornecedor nao existe.");
 		}
+		fornecedores.remove(nome);
 	}
 	
+	/**
+	 * Adiciona um novo produto a algum fornecedor
+	 * @param fornecedor Especifica o fornecedor que receberá o novo produto
+	 * @param nome Nome do produto
+	 * @param descrição Descrição do produto
+	 * @param preco Preço do produto
+	 */
+	public void addProduto(String fornecedor, String nome, String descrição, double preco) {
+		Util.validandoNull(fornecedor, "Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(fornecedor, "Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
+		Util.validandoNull(nome, "Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
+		Util.validandoNull(descrição, "Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
+		Util.validaVazia(descrição, "Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
+		
+		if(!this.fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao existe.");
+		}
+		if(preco < 0) {
+			throw new IllegalArgumentException("Erro no cadastro de produto: preco invalido.");
+		}
+		
+		
+		Fornecedor fornecedorr = this.fornecedores.get(fornecedor);
+		
+		fornecedorr.addProduto(nome, descrição, preco);
+	}
+	
+	/**
+	 * Edita o preço de um produto
+	 * @param nome Nome do produto
+	 * @param descricao Descrição do produto
+	 * @param fornecedor Fornecedor que terá seu produto alterado
+	 * @param novoPreco Novo preço do produto
+	 */
+	public void editaProduto(String nome, String descricao, String fornecedor, double novoPreco) {
+		Util.validandoNull(descricao, "Erro na edicao de produto: descricao nao pode ser vazia ou nula.");
+		Util.validaVazia(descricao, "Erro na edicao de produto: descricao nao pode ser vazia ou nula.");
+		Util.validandoNull(nome, "Erro na edicao de produto: nome nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro na edicao de produto: nome nao pode ser vazio ou nulo.");
+		Util.validandoNull(fornecedor, "Erro na edicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(fornecedor, "Erro na edicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na edicao de produto: fornecedor nao existe.");
+		}
+		if(novoPreco < 0) {
+			throw new IllegalArgumentException("Erro na edicao de produto: preco invalido.");
+		}
+		this.fornecedores.get(fornecedor).editaProduto(nome, descricao, novoPreco);
+	}
 	/**
 	 * Apresenta uma lista com todos os produtos de um determinado fornecedor
 	 * 
@@ -122,6 +190,9 @@ public class ControllerFornecedor {
 	public String consultaProdutoFornecedor(String nomeFornecedor) {
 		Util.validandoNull(nomeFornecedor, "Não é permitido um nome nulo");
 		Util.validaVazia(nomeFornecedor, "Não é permitido um nome vazio");
+		if(!this.fornecedores.containsKey(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
+		}
 		return fornecedores.get(nomeFornecedor).listarProdutos();
 	}
 	
@@ -137,5 +208,32 @@ public class ControllerFornecedor {
 			string += fornecedor.listarProdutos();
 		}
 		return string;
+	}
+
+	public String exibeProduto(String nome, String descricao, String fornecedor) {
+		Util.validandoNull(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
+		Util.validandoNull(descricao, "Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
+		Util.validaVazia(descricao, "Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
+		Util.validandoNull(fornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(fornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
+		}
+		return this.fornecedores.get(fornecedor).exibeProduto(nome, descricao);
+		
+	}
+
+	public void removeProduto(String nome, String descricao, String fornecedor) {
+		Util.validandoNull(nome, "Erro na remocao de produto: nome nao pode ser vazio ou nulo.");
+		Util.validaVazia(nome, "Erro na remocao de produto: nome nao pode ser vazio ou nulo.");
+		Util.validandoNull(descricao, "Erro na remocao de produto: descricao nao pode ser vazia ou nula.");
+		Util.validaVazia(descricao, "Erro na remocao de produto: descricao nao pode ser vazia ou nula.");
+		Util.validandoNull(fornecedor, "Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(fornecedor, "Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao existe.");
+		}
+		this.fornecedores.get(fornecedor).removerProduto(nome, descricao);
 	}
 }
