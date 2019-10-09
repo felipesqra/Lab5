@@ -36,11 +36,7 @@ class FornecedorTest {
 	void testToString() {
 		assertEquals(fornecedor2.toString(), "Fornecedor - email.com - 7412341234");
 	}
-	
-	@Test
-	void testlistarToString() {
-		assertEquals(fornecedor2.listarToString(), "Fornecedor - email.com - 7412341234 | ");
-	}
+
 	
 	@Test
 	void testlistarProdutos() {

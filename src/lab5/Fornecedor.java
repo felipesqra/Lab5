@@ -1,6 +1,9 @@
 package lab5;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Simula o fornecedor cadastrado no programa
@@ -98,15 +101,7 @@ public class Fornecedor {
 		return this.nome + " - " + this.email + " - " + this.telefone;
 	}
 	
-	/**
-	 * Retorna uma String contendo o nome, o email e o telefone do fornecedor
-	 * 
-	 * @return Retorna uma String contendo o nome, o email e o telefone do fornecedor
-	 */
-	public String listarToString() {
-		return this.nome + " - " + this.email + " - " + this.telefone + " | ";
-	}
-	
+
 	/**
 	 * Edita as informações dde um fornecedor existente
 	 * 
@@ -130,9 +125,26 @@ public class Fornecedor {
 	public String listarProdutos() {
 		String string = "";
 		
-		for(Produto produto: this.produtos.values()) {
-			string += nome + " - " + produto.listarToString();
+		List<String> lista = new ArrayList<>();
+
+		if(this.produtos.size() == 0) {
+			lista.add(this.nome + " -");
 		}
+		
+		for(Produto produto: this.produtos.values()) {
+			lista.add(this.nome + " - " + produto.toString());
+		}
+		Collections.sort(lista);
+		for(int i = 0; i<lista.size(); i++) {
+			if(i != lista.size()-1) {
+				string += lista.get(i) + " | ";
+			}else { 
+				string += lista.get(i);
+
+			}
+		
+		}
+		
 		return string;
 	}
 	

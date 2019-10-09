@@ -1,6 +1,9 @@
 package lab5;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -75,14 +78,23 @@ public class ControllerFornecedor {
 	public String listarFornecedores() {
 		String string = "";
 		
-		
+		List<String> lista = new ArrayList<>();
+
 		for(Fornecedor fornecedor: this.fornecedores.values()) {
-			string += fornecedor.listarToString();
+			lista.add(fornecedor.toString());
+		}
+		Collections.sort(lista);
+		for(int i = 0; i<lista.size(); i++) {
+			if(i != lista.size()-1) {
+				string += lista.get(i) + " | ";
+			}else { 
+				string += lista.get(i);
+			}
+		
 		}
 		
 		return string;
 	}
-	
 	/**
 	 * Edita informações do fornecedor.
 	 * 
@@ -204,9 +216,22 @@ public class ControllerFornecedor {
 	public String listarTodosProdutosDosFornecedores() {
 		String string = "";
 		
-		for(Fornecedor fornecedor: fornecedores.values()) {
-			string += fornecedor.listarProdutos();
+		List<String> lista = new ArrayList<>();
+
+		for(Fornecedor fornecedor: this.fornecedores.values()) {
+			lista.add(fornecedor.listarProdutos());
 		}
+		Collections.sort(lista);
+		for(int i = 0; i<lista.size(); i++) {
+			if(i != lista.size()-1) {
+				string += lista.get(i) + " | ";
+
+			}else { 
+				string += lista.get(i);
+			}
+		
+		}
+		
 		return string;
 	}
 

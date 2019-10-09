@@ -41,13 +41,6 @@ public class Produto {
 	}
 
 	/**
-	 * Retorna uma String com o nome, a descrição e o preço do produto
-	 */
-	public String listarToString() {
-		return nome + " - " + descrição + " - " + "R$" + preço + " | ";
-	}
-	
-	/**
 	 * Edita o preço do produto
 	 * 
 	 * @param preço Novo preço do produto
