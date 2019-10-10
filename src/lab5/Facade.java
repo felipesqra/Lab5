@@ -178,8 +178,16 @@ public class Facade {
 		this.controllerFornecedor.removeProduto(nome, descricao, fornecedor);
 	}
 	
+	/**
+	 * Cadastra um novo combo no sistema
+	 */
+	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		this.controllerFornecedor.adicionaCombo(fornecedor, nome, descricao, fator, produtos);
+	}
+	
 	public static void main(String[] args) {
-		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt", "TestesEasy/use_case_3.txt", "TestesEasy/use_case_4.txt"
+		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt", "TestesEasy/use_case_3.txt",
+				"TestesEasy/use_case_4.txt", "TestesEasy/use_case_5.txt", "TestesEasy/use_case_6.txt"
 	}; EasyAccept.main(args);
 	}
 	

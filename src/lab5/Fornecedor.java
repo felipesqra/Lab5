@@ -28,6 +28,8 @@ public class Fornecedor {
 	 */
 	private HashMap<String, Produto> produtos;
 	
+	private HashMap<String, Combo> combos;
+	
 	/**
 	 * Construtor do fornecedor
 	 * 
@@ -46,6 +48,7 @@ public class Fornecedor {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.produtos = new HashMap<>();
+		this.combos = new HashMap<>();
 	}
 	
 	/**
@@ -217,6 +220,23 @@ public class Fornecedor {
 			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
 		return this.produtos.get(string).toString();
+	}
+
+	public void addCombo(String nome, String descricao, double fator, String produtos) {
+		Util.validandoNull(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
+		Util.validaVazia(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
+		
+		String[] produtosSeparados = produtos.split(", ");
+		
+	
+		if(this.combos.containsKey(nome)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+		}
+		
+		Combo combo = new Combo(nome, descricao, fator, produtosSeparados);
+		this.combos.put(nome, combo);
+		
+		
 	}
 	
 	

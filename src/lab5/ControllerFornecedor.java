@@ -18,14 +18,14 @@ public class ControllerFornecedor {
 	private HashMap<String, Fornecedor> fornecedores;
 	
 	/**
-	 * Construtor do controllerFornecedor
+	 * Construtor do fornecedor
 	 */
 	public ControllerFornecedor() {
 		this.fornecedores = new HashMap<>();
 	}
 	
 	/**
-	 * Cdastra novos fornecedores
+	 * Cadastra novos fornecedores
 	 * 
 	 * @param nome Nome do fornecedor
 	 * @param email Email do fornecedor
@@ -261,4 +261,17 @@ public class ControllerFornecedor {
 		}
 		this.fornecedores.get(fornecedor).removerProduto(nome, descricao);
 	}
+
+	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		Util.validandoNull(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
+		}
+		
+		this.fornecedores.get(fornecedor).addCombo(nome, descricao, fator, produtos);
+		
+	}
+
+	
 }
