@@ -62,6 +62,10 @@ public class Cliente{
 		return this.cpf;
 	}
 	
+	public String getNome() {
+		return this.nome;
+	}
+	
 	/**
 	 * Retorna uma String com o nome, a localização e o email do cliente
 	 * 

@@ -78,17 +78,17 @@ public class ControllerFornecedor {
 	public String listarFornecedores() {
 		String string = "";
 		
-		List<String> lista = new ArrayList<>();
+		Ordenadora ordenaFornecedor = new Ordenadora();
+		
+		List<Fornecedor> listaFornecedor = new ArrayList<>(this.fornecedores.values());
+		Collections.sort(listaFornecedor, ordenaFornecedor);
+		
+		for(int i = 0; i<listaFornecedor.size(); i++) {
+			if(i != listaFornecedor.size()-1) {
+				string += listaFornecedor.get(i) + " | ";
 
-		for(Fornecedor fornecedor: this.fornecedores.values()) {
-			lista.add(fornecedor.toString());
-		}
-		Collections.sort(lista);
-		for(int i = 0; i<lista.size(); i++) {
-			if(i != lista.size()-1) {
-				string += lista.get(i) + " | ";
 			}else { 
-				string += lista.get(i);
+				string += listaFornecedor.get(i);
 			}
 		
 		}
@@ -216,25 +216,24 @@ public class ControllerFornecedor {
 	public String listarTodosProdutosDosFornecedores() {
 		String string = "";
 		
-		List<String> lista = new ArrayList<>();
-
-		for(Fornecedor fornecedor: this.fornecedores.values()) {
-			lista.add(fornecedor.listarProdutos());
-		}
-		Collections.sort(lista);
-		for(int i = 0; i<lista.size(); i++) {
-			if(i != lista.size()-1) {
-				string += lista.get(i) + " | ";
+		Ordenadora ordenaFornecedor = new Ordenadora();
+		
+		List<Fornecedor> listaFornecedor = new ArrayList<>(this.fornecedores.values());
+		Collections.sort(listaFornecedor, ordenaFornecedor);
+		
+		for(int i = 0; i<listaFornecedor.size(); i++) {
+			
+			if(i != listaFornecedor.size()-1) {
+				string += listaFornecedor.get(i).listarProdutos() + " | ";
 
 			}else { 
-				string += lista.get(i);
+				string += listaFornecedor.get(i).listarProdutos();
 			}
 		
 		}
 		
 		return string;
 	}
-
 	public String exibeProduto(String nome, String descricao, String fornecedor) {
 		Util.validandoNull(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
 		Util.validaVazia(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
@@ -260,18 +259,5 @@ public class ControllerFornecedor {
 			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao existe.");
 		}
 		this.fornecedores.get(fornecedor).removerProduto(nome, descricao);
-	}
-
-	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
-		Util.validandoNull(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
-		Util.validaVazia(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
-		if(!this.fornecedores.containsKey(fornecedor)) {
-			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
-		}
-		
-		this.fornecedores.get(fornecedor).addCombo(nome, descricao, fator, produtos);
-		
-	}
-
-	
+	}	
 }

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+
 
 
 /**
@@ -11,12 +13,11 @@ import java.util.Collections;
  * 
  * @author Felipe de Souza Siqueira - 119110399
  */
-public class ControllerCliente {
+public class ControllerCliente{
 	/**
 	 * Mapa contendo os clientes cadastrados
 	 */
 	private HashMap<String,Cliente> clientes;
-
 	
 	/**
 	 * Construtor do ControllerCliente
@@ -58,7 +59,7 @@ public class ControllerCliente {
 		Util.validandoNull(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
 		Util.validaVazia(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
 		String string = "";
-		
+
 		if(!clientes.containsKey(cpf)) {
 			throw new IllegalArgumentException("Erro na exibicao do cliente: cliente nao existe.");
 		}
@@ -75,17 +76,18 @@ public class ControllerCliente {
 	public String listarClientes() {
 		String string = "";
 		
-		List<String> lista = new ArrayList<>();
+		Ordenadora comparador = new Ordenadora();
+		
+		
+		List<Cliente> listaClientes = new ArrayList<>(this.clientes.values());
 
-		for(Cliente cliente: this.clientes.values()) {
-			lista.add(cliente.toString());
-		}
-		Collections.sort(lista);
-		for(int i = 0; i<lista.size(); i++) {
-			if(i != lista.size()-1) {
-				string += lista.get(i) + " | ";
+		Collections.sort(listaClientes, comparador);
+		
+		for(int i = 0; i<listaClientes.size(); i++) {
+			if(i != listaClientes.size()-1) {
+				string += listaClientes.get(i) + " | ";
 			}else { 
-				string += lista.get(i);
+				string += listaClientes.get(i);
 			}
 		
 		}
@@ -147,4 +149,6 @@ public class ControllerCliente {
 			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao existe.");
 		}
 	}
+
+
 }

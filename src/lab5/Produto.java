@@ -49,6 +49,10 @@ public class Produto {
 		this.preço = preço;
 	}
 	
+	public String getNome() {
+		return this.nome;
+	}
+	
 	/**
 	 * Gera uma representação em inteiro para cada objeto instanciado
 	 */

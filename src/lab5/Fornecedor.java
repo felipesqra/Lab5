@@ -28,8 +28,6 @@ public class Fornecedor {
 	 */
 	private HashMap<String, Produto> produtos;
 	
-	private HashMap<String, Combo> combos;
-	
 	/**
 	 * Construtor do fornecedor
 	 * 
@@ -48,7 +46,6 @@ public class Fornecedor {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.produtos = new HashMap<>();
-		this.combos = new HashMap<>();
 	}
 	
 	/**
@@ -91,7 +88,7 @@ public class Fornecedor {
 	 * @return Retorna uma String contendo o nome do fornecedor
 	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	
 	
@@ -128,22 +125,19 @@ public class Fornecedor {
 	public String listarProdutos() {
 		String string = "";
 		
-		List<String> lista = new ArrayList<>();
-
 		if(this.produtos.size() == 0) {
-			lista.add(this.nome + " -");
+			string += this.nome + " -"; 
+			return string;
 		}
+		List<Produto> listaProduto = new ArrayList<>(this.produtos.values());
+		Ordenadora ordenaProdutos = new Ordenadora();
+		Collections.sort(listaProduto, ordenaProdutos);
 		
-		for(Produto produto: this.produtos.values()) {
-			lista.add(this.nome + " - " + produto.toString());
-		}
-		Collections.sort(lista);
-		for(int i = 0; i<lista.size(); i++) {
-			if(i != lista.size()-1) {
-				string += lista.get(i) + " | ";
+		for(int i = 0; i<listaProduto.size(); i++) {
+			if(i != listaProduto.size()-1) {
+				string += this.nome + " - " + listaProduto.get(i) + " | ";
 			}else { 
-				string += lista.get(i);
-
+				string += this.nome + " - " + listaProduto.get(i);
 			}
 		
 		}
@@ -221,24 +215,5 @@ public class Fornecedor {
 		}
 		return this.produtos.get(string).toString();
 	}
-
-	public void addCombo(String nome, String descricao, double fator, String produtos) {
-		Util.validandoNull(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
-		Util.validaVazia(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
-		
-		String[] produtosSeparados = produtos.split(", ");
-		
-	
-		if(this.combos.containsKey(nome)) {
-			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
-		}
-		
-		Combo combo = new Combo(nome, descricao, fator, produtosSeparados);
-		this.combos.put(nome, combo);
-		
-		
-	}
-	
-	
 	
 }
