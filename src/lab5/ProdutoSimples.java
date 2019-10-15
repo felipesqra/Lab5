@@ -5,7 +5,7 @@ package lab5;
  * 
  * @author Felipe de Souza Siqueira - 119110399
  */
-public class Produto {
+public class ProdutoSimples implements ProdutoGeral {
 	/**
 	 * Nome do produto
 	 */
@@ -26,7 +26,7 @@ public class Produto {
 	 * @param descrição DEscrição do produto
 	 * @param preço Preço do produto
 	 */
-	public Produto(String nome, String descrição, double preço) {
+	public ProdutoSimples(String nome, String descrição, double preço) {
 
 		this.nome = nome;
 		this.descrição = descrição;
@@ -76,7 +76,7 @@ public class Produto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		ProdutoSimples other = (ProdutoSimples) obj;
 		if (descrição == null) {
 			if (other.descrição != null)
 				return false;

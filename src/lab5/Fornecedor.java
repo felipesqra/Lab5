@@ -26,7 +26,7 @@ public class Fornecedor {
 	/**
 	 * Mapa contendo todos os produtos de um fornecedor
 	 */
-	private HashMap<String, Produto> produtos;
+	private HashMap<String, ProdutoGeral> produtos;
 	
 	/**
 	 * Construtor do fornecedor
@@ -56,7 +56,7 @@ public class Fornecedor {
 	 * @param preço Preço do produto
 	 */
 	public void addProduto(String nome, String descrição, double preço) {
-		Produto produto = new Produto(nome, descrição, preço);
+		ProdutoSimples produto = new ProdutoSimples(nome, descrição, preço);
 		
 		String chave = nome+descrição;
 		
@@ -129,7 +129,7 @@ public class Fornecedor {
 			string += this.nome + " -"; 
 			return string;
 		}
-		List<Produto> listaProduto = new ArrayList<>(this.produtos.values());
+		List<ProdutoGeral> listaProduto = new ArrayList<>(this.produtos.values());
 		Ordenadora ordenaProdutos = new Ordenadora();
 		Collections.sort(listaProduto, ordenaProdutos);
 		
@@ -214,6 +214,13 @@ public class Fornecedor {
 			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
 		return this.produtos.get(string).toString();
+	}
+	
+	public void novoCombo(String nome_combo, String descricao_combo, double fator, String produtos) {
+		String[] chaves = produtos.split(", ");
+		ProdutoGeral p1 = this.produtos.get(chaves[0]);
+		ProdutoGeral p2 = this.produtos.get(chaves[1]);
+		Combo combo = new Combo(nome_combo, descricao_combo, fator, p1, p2);
 	}
 	
 }

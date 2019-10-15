@@ -10,8 +10,8 @@ class FornecedorTest {
 
 	Fornecedor fornecedor;
 	Fornecedor fornecedor2;
-	Produto produto1;
-	Produto produto2;
+	ProdutoSimples produto1;
+	ProdutoSimples produto2;
 	
 	@BeforeEach
 	void test() {

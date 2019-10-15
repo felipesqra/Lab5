@@ -14,9 +14,9 @@ public class Ordenadora implements Comparator<Object>{
 			Fornecedor f1 = (Fornecedor) obj1;
 			Fornecedor f2 = (Fornecedor) obj2;
 			return f1.getNome().compareTo(f2.getNome());
-		} else if (obj1 instanceof Produto) {
-			Produto p1 = (Produto) obj1;
-			Produto p2 = (Produto) obj2;
+		} else if (obj1 instanceof ProdutoSimples) {
+			ProdutoSimples p1 = (ProdutoSimples) obj1;
+			ProdutoSimples p2 = (ProdutoSimples) obj2;
 			return p1.getNome().compareTo(p2.getNome());
 		} else if(obj1 instanceof String) {
 			return ((String) obj1).compareTo((String) obj2);
