@@ -8,9 +8,9 @@ public class Combo implements ProdutoGeral{
 	private String descricao;
 	private double preço;
 	private double fator;
-	private ArrayList<ProdutoSimples> produtos;
+	private ArrayList<ProdutoGeral> produtos;
 	
-	public Combo(String nome, String descricao, double fator, ProdutoSimples p1, ProdutoSimples p2) {
+	public Combo(String nome, String descricao, double fator, ProdutoGeral p1, ProdutoGeral p2) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.fator = fator;
