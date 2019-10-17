@@ -178,6 +178,10 @@ public class Facade {
 		this.controllerFornecedor.removeProduto(nome, descricao, fornecedor);
 	}
 	
+	public void adicionaCombo(String fornecedor, String nome_combo, String descricao_combo, double fator, String produtos) {
+		this.controllerFornecedor.addCombo(fornecedor, nome_combo, descricao_combo, fator, produtos);
+	}
+	
 	public static void main(String[] args) {
 		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt", "TestesEasy/use_case_3.txt",
 				"TestesEasy/use_case_4.txt", "TestesEasy/use_case_5.txt", "TestesEasy/use_case_6.txt"

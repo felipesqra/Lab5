@@ -26,7 +26,9 @@ public class Fornecedor {
 	/**
 	 * Mapa contendo todos os produtos de um fornecedor
 	 */
-	private HashMap<String, ProdutoGeral> produtos;
+	private HashMap<String, Produto> produtos;
+	
+	private HashMap<String, Combo> combos;
 	
 	/**
 	 * Construtor do fornecedor
@@ -56,7 +58,7 @@ public class Fornecedor {
 	 * @param preço Preço do produto
 	 */
 	public void addProduto(String nome, String descrição, double preço) {
-		ProdutoSimples produto = new ProdutoSimples(nome, descrição, preço);
+		Produto produto = new Produto(nome, descrição, preço);
 		
 		String chave = nome+descrição;
 		
@@ -129,7 +131,7 @@ public class Fornecedor {
 			string += this.nome + " -"; 
 			return string;
 		}
-		List<ProdutoGeral> listaProduto = new ArrayList<>(this.produtos.values());
+		List<Produto> listaProduto = new ArrayList<>(this.produtos.values());
 		Ordenadora ordenaProdutos = new Ordenadora();
 		Collections.sort(listaProduto, ordenaProdutos);
 		
@@ -217,10 +219,24 @@ public class Fornecedor {
 	}
 	
 	public void novoCombo(String nome_combo, String descricao_combo, double fator, String produtos) {
-		String[] chaves = produtos.split(", ");
-		ProdutoGeral p1 = this.produtos.get(chaves[0]);
-		ProdutoGeral p2 = this.produtos.get(chaves[1]);
-		Combo combo = new Combo(nome_combo, descricao_combo, fator, p1, p2);
+		List<Produto> produtosObj = new ArrayList<Produto>();
+		
+		if(this.combos.containsKey(nome_combo+descricao_combo)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+		}
+		
+		for(String produto: produtos.split(", ")) {
+			String nomeProduto = produto.split(" - ")[0];
+			String descricaoProduto = produto.split(" - ")[1];
+			
+			Produto p = this.produtos.get(nomeProduto + descricaoProduto);
+			
+			produtosObj.add(p);
+		}
+
+		Combo combo = new Combo(nome_combo, descricao_combo, fator, produtosObj);
+		
+		this.combos.put(nome_combo+descricao_combo, combo);
 	}
 	
 }

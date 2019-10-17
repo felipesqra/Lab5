@@ -5,7 +5,7 @@ package lab5;
  * 
  * @author Felipe de Souza Siqueira - 119110399
  */
-public class ProdutoSimples implements ProdutoGeral {
+public class Produto {
 	/**
 	 * Nome do produto
 	 */
@@ -26,7 +26,7 @@ public class ProdutoSimples implements ProdutoGeral {
 	 * @param descrição DEscrição do produto
 	 * @param preço Preço do produto
 	 */
-	public ProdutoSimples(String nome, String descrição, double preço) {
+	public Produto(String nome, String descrição, double preço) {
 
 		this.nome = nome;
 		this.descrição = descrição;
@@ -53,10 +53,14 @@ public class ProdutoSimples implements ProdutoGeral {
 		return this.nome;
 	}
 	
+	public double getPreço() {
+		return this.preço;
+	}
+	
 	/**
 	 * Gera uma representação em inteiro para cada objeto instanciado
 	 */
-	@Override
+	
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -68,7 +72,7 @@ public class ProdutoSimples implements ProdutoGeral {
 	/**
 	 * Compara objetos e retorna um boolean
 	 */
-	@Override
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -76,7 +80,7 @@ public class ProdutoSimples implements ProdutoGeral {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProdutoSimples other = (ProdutoSimples) obj;
+		Produto other = (Produto) obj;
 		if (descrição == null) {
 			if (other.descrição != null)
 				return false;
