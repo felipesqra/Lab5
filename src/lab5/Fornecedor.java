@@ -48,6 +48,7 @@ public class Fornecedor {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.produtos = new HashMap<>();
+		this.combos = new HashMap<>();
 	}
 	
 	/**
@@ -131,7 +132,13 @@ public class Fornecedor {
 			string += this.nome + " -"; 
 			return string;
 		}
-		List<Produto> listaProduto = new ArrayList<>(this.produtos.values());
+		List<Object> listaProduto = new ArrayList<>(this.produtos.values());
+		if(this.combos.size() != 0) {
+			for(Combo combo: this.combos.values()) {
+				listaProduto.add(combo);
+			}
+		}
+		
 		Ordenadora ordenaProdutos = new Ordenadora();
 		Collections.sort(listaProduto, ordenaProdutos);
 		
@@ -208,18 +215,26 @@ public class Fornecedor {
 	}
 
 	public String exibeProduto(String nome, String descricao) {
-		
+		String retorno = "";
 		
 		String string = nome+descricao;
 		
-		if(!this.produtos.containsKey(string)) {
+		
+		if(!this.produtos.containsKey(string) && !this.combos.containsKey(string)) {
 			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
-		return this.produtos.get(string).toString();
+		if(this.produtos.containsKey(string)) {
+			retorno += this.produtos.get(string).toString();
+		}
+		if(this.combos.containsKey(string)) {
+			retorno += this.combos.get(string).toString();
+		}
+		return retorno;
 	}
 	
 	public void novoCombo(String nome_combo, String descricao_combo, double fator, String produtos) {
 		List<Produto> produtosObj = new ArrayList<Produto>();
+
 		
 		if(this.combos.containsKey(nome_combo+descricao_combo)) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
@@ -228,12 +243,19 @@ public class Fornecedor {
 		for(String produto: produtos.split(", ")) {
 			String nomeProduto = produto.split(" - ")[0];
 			String descricaoProduto = produto.split(" - ")[1];
-			
+			if(this.combos.containsKey(nomeProduto + descricaoProduto)) {
+				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
+			}
+			if(!this.produtos.containsKey(nomeProduto + descricaoProduto)) {
+				throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
+			}
 			Produto p = this.produtos.get(nomeProduto + descricaoProduto);
 			
+
 			produtosObj.add(p);
 		}
-
+		
+		
 		Combo combo = new Combo(nome_combo, descricao_combo, fator, produtosObj);
 		
 		this.combos.put(nome_combo+descricao_combo, combo);

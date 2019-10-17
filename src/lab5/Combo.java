@@ -1,4 +1,4 @@
-package lab5;
+ package lab5;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class Combo {
 	
 	
 	public String toString() {
-		return null;
+		return String.format("%s - %s - R$%.2f", this.nome, this.descricao, this.preço); 
 	}
 	
 	public double getPreço() {
@@ -41,7 +41,7 @@ public class Combo {
 		for(Produto produto: produtos) {
 			preço += produto.getPreço();
 		}
-		this.preço = this.preço * this.fator;
+		this.preço = this.preço - this.preço * this.fator;
 		return preço;
 	}
 

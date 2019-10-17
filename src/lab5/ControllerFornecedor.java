@@ -244,6 +244,7 @@ public class ControllerFornecedor {
 		if(!this.fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
 		}
+		
 		return this.fornecedores.get(fornecedor).exibeProduto(nome, descricao);
 		
 	}
@@ -268,10 +269,13 @@ public class ControllerFornecedor {
 		Util.validaVazia(descricao_combo, "Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
 		Util.validandoNull(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
 		Util.validaVazia(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+		Util.validandoNull(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
+		Util.validaVazia(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
+		
 		if(!this.fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
 		}
-		if(fator > 1 || fator < 0) {
+		if(fator > 1 || fator < 0 || fator == 1) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
 		}
 		this.fornecedores.get(fornecedor).novoCombo(nome_combo, descricao_combo, fator, produtos);
