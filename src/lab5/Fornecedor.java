@@ -222,7 +222,13 @@ public class Fornecedor {
 			return false;
 		return true;
 	}
-
+	
+	/**
+	 * Exibe um determinado produto
+	 * @param nome Nome do produto
+	 * @param descricao Descricao do produto
+	 * @return Retorna uma String com informações do produto
+	 */
 	public String exibeProduto(String nome, String descricao) {
 		String retorno = "";
 		
@@ -242,7 +248,13 @@ public class Fornecedor {
 		
 		return retorno;
 	}
-	
+	/**
+	 * Cria um novo combo de produtos
+	 * @param nome_combo Nome do combo
+	 * @param descricao_combo Descricao do combo
+	 * @param fator Fator para desconto no preço do produto
+	 * @param produtos Produtos que farão parte do combo
+	 */
 	public void novoCombo(String nome_combo, String descricao_combo, double fator, String produtos) {
 		List<Produto> produtosObj = new ArrayList<Produto>();
 
@@ -271,7 +283,12 @@ public class Fornecedor {
 		
 		this.combos.put(nome_combo+descricao_combo, combo);
 	}
-
+	/**
+	 * Edita o fator do combo
+	 * @param nome2 Nome do combo
+	 * @param descricao Descricao do combo
+	 * @param novoFator Novo fator
+	 */
 	public void editaCombo(String nome2, String descricao, double novoFator) {
 		String chave = nome2 + descricao;
 		if(!this.combos.containsKey(chave)) {
@@ -279,7 +296,15 @@ public class Fornecedor {
 		}
 		this.combos.get(chave).editar(novoFator);
 	}
-
+	
+	/**
+	 * Adiciona uma compra a conta do cliente
+	 * @param cliente Nome do cliente
+	 * @param fornecedor Nome do fornecedor
+	 * @param data Data da compra
+	 * @param nome Nome do produto
+	 * @param descricao Descricao do produto
+	 */
 	public void addCompra(String cliente, String fornecedor, String data, String nome, String descricao) {
 		if(this.contas.containsKey(cliente)) {
 			String idProduto = nome + descricao;

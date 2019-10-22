@@ -234,6 +234,14 @@ public class ControllerFornecedor {
 		
 		return string;
 	}
+	
+	/**
+	 * Exibe um determinado produto
+	 * @param nome Nome do produto
+	 * @param descricao Descricao do produto
+	 * @param fornecedor Nome do fornecedor
+	 * @return Retorna uma String com informações do produto
+	 */
 	public String exibeProduto(String nome, String descricao, String fornecedor) {
 		Util.validandoNull(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
 		Util.validaVazia(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
@@ -248,7 +256,12 @@ public class ControllerFornecedor {
 		return this.fornecedores.get(fornecedor).exibeProduto(nome, descricao);
 		
 	}
-
+	/**
+	 * Remove um produto de um fornecedor
+	 * @param nome Nome do produto
+	 * @param descricao Descricao do produto
+	 * @param fornecedor Nome do fornecedor
+	 */
 	public void removeProduto(String nome, String descricao, String fornecedor) {
 		Util.validandoNull(nome, "Erro na remocao de produto: nome nao pode ser vazio ou nulo.");
 		Util.validaVazia(nome, "Erro na remocao de produto: nome nao pode ser vazio ou nulo.");
@@ -261,7 +274,14 @@ public class ControllerFornecedor {
 		}
 		this.fornecedores.get(fornecedor).removerProduto(nome, descricao);
 	}
-	
+	/**
+	 * Cria um novo combo
+	 * @param fornecedor Nome do fornecedor
+	 * @param nome_combo Nome do combo
+	 * @param descricao_combo Descricao do combo
+	 * @param fator Fator para desconto no preço do combo
+	 * @param produtos Produtos que farão parte do combo
+	 */
 	public void addCombo(String fornecedor, String nome_combo, String descricao_combo, double fator, String produtos) {
 		Util.validandoNull(nome_combo, "Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
 		Util.validaVazia(nome_combo, "Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
@@ -280,7 +300,13 @@ public class ControllerFornecedor {
 		}
 		this.fornecedores.get(fornecedor).novoCombo(nome_combo, descricao_combo, fator, produtos);
 	}
-
+	/**
+	 * Edita o fator do combo
+	 * @param nome Nome do combo
+	 * @param descricao Descricao do combo
+	 * @param fornecedor Nome do fornecedor
+	 * @param novoFator Novo fator de promocao
+	 */
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
 		Util.validandoNull(nome, "Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
 		Util.validaVazia(nome, "Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
@@ -298,7 +324,14 @@ public class ControllerFornecedor {
 		this.fornecedores.get(fornecedor).editaCombo(nome, descricao, novoFator);
 		
 	}
-	
+	/**
+	 * Adiciona uma nova compra a conta do cliente
+	 * @param cliente Nome do cliente
+	 * @param fornecedor Nome do fornecedor
+	 * @param data Data da compra
+	 * @param nome Nome do produto
+	 * @param descricao Descricao do produto
+	 */
 	public void addCompra(String cliente, String fornecedor, String data, String nome, String descricao) {
 		this.fornecedores.get(fornecedor).addCompra(cliente,fornecedor, data, nome, descricao);
 	}

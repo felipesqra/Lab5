@@ -16,7 +16,9 @@ public class Facade {
 	 * Controller da classe Cliente
 	 */
 	private ControllerCliente controllerCliente;
-	
+	/**
+	 * Controller da classe Compra
+	 */
 	private ControllerCompra controllerCompra;
 	/**
 	 * Construtor do facade
@@ -180,14 +182,37 @@ public class Facade {
 		this.controllerFornecedor.removeProduto(nome, descricao, fornecedor);
 	}
 	
+	/**
+	 * Adiciona um novo combo a um fornecedor
+	 * @param fornecedor Nome do fornecedor
+	 * @param nome_combo Nome do combo
+	 * @param descricao_combo Descricao do combo
+	 * @param fator Fator de promoção do combo
+	 * @param produtos Produtos que fazem parte do combo
+	 */
 	public void adicionaCombo(String fornecedor, String nome_combo, String descricao_combo, double fator, String produtos) {
 		this.controllerFornecedor.addCombo(fornecedor, nome_combo, descricao_combo, fator, produtos);
 	}
 	
+	/**
+	 * Edita o fator de um combo
+	 * @param nome Nome do combo
+	 * @param descricao Descricao do combo
+	 * @param fornecedor Nome do fornecedor
+	 * @param novoFator Novo valor para o fator
+	 */
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
 		this.controllerFornecedor.editaCombo(nome, descricao, fornecedor, novoFator);
 	}
 	
+	/**
+	 * Adiciona uma nova compra a conta dde um cliente
+	 * @param cpfCliente CPF do cliente
+	 * @param fornecedor Nome do fornecedor
+	 * @param data Data da compra
+	 * @param nome Nome da compra
+	 * @param descricao Descricao da compra
+	 */
 	public void adicionaCompra(String cpfCliente, String fornecedor, String data, String nome, String descricao) {
 		this.controllerCompra.addCompra(cpfCliente, fornecedor, data, nome, descricao);
 	}
