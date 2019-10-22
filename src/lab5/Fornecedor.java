@@ -180,7 +180,12 @@ public class Fornecedor {
 		if(!this.produtos.containsKey(string) && !this.combos.containsKey(string)) {
 			throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 		}
-		this.produtos.remove(string);
+		if(this.produtos.containsKey(string) && !this.combos.containsKey(string)) {
+			this.produtos.remove(string);
+		}
+		if(!this.produtos.containsKey(string) && this.combos.containsKey(string)) {
+			this.combos.remove(string);
+		}
 	}
 	/**
 	 * Gera uma representação em inteiro do objeto
@@ -228,13 +233,13 @@ public class Fornecedor {
 		if(!this.produtos.containsKey(string) && !this.combos.containsKey(string)) {
 			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
-		if(this.produtos.containsKey(string)) {
+		if(this.produtos.containsKey(string) && !this.combos.containsKey(string)) {
 			retorno += this.produtos.get(string).toString();
 		}
-		if(this.combos.containsKey(string)) {
+		if(this.combos.containsKey(string) && !this.produtos.containsKey(string)) {
 			retorno += this.combos.get(string).toString();
 		}
-		System.out.println(retorno);
+		
 		return retorno;
 	}
 	

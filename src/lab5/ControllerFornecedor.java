@@ -288,12 +288,12 @@ public class ControllerFornecedor {
 		Util.validaVazia(descricao, "Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
 		Util.validandoNull(fornecedor, "Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
 		Util.validaVazia(fornecedor, "Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
-		if(!this.fornecedores.containsKey(fornecedor)) {
-			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao existe.");
-		}
-		
 		if(novoFator < 0 || novoFator > 1 || novoFator == 1 || novoFator == 0) {
 			throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
+		}
+		
+		if(!this.fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao existe.");
 		}
 		this.fornecedores.get(fornecedor).editaCombo(nome, descricao, novoFator);
 		

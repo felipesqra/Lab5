@@ -18,8 +18,9 @@ public class Combo {
 		this.preço = calculaPreco(produtos);
 	}
 	
-	public void editar(double preço) {
-		this.preço = preço;
+	public void editar(double novoFator) {
+		this.fator = novoFator;
+		this.preço = calculaPreco(produtos);
 	}
 
 	
