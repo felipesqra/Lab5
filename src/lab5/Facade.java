@@ -17,12 +17,14 @@ public class Facade {
 	 */
 	private ControllerCliente controllerCliente;
 	
+	private ControllerCompra controllerCompra;
 	/**
 	 * Construtor do facade
 	 */
 	public Facade() {
 		this.controllerCliente = new ControllerCliente();
 		this.controllerFornecedor = new ControllerFornecedor();
+		this.controllerCompra = new ControllerCompra();
 	}
 	
 	
@@ -182,9 +184,17 @@ public class Facade {
 		this.controllerFornecedor.addCombo(fornecedor, nome_combo, descricao_combo, fator, produtos);
 	}
 	
+	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		this.controllerFornecedor.editaCombo(nome, descricao, fornecedor, novoFator);
+	}
+	
+	public void adicionaCompra(String cpfCliente, String fornecedor, String data, String nome, String descricao) {
+		this.controllerCompra.addCompra(cpfCliente, fornecedor, data, nome, descricao);
+	}
+	
 	public static void main(String[] args) {
 		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt", "TestesEasy/use_case_3.txt",
-				"TestesEasy/use_case_4.txt", "TestesEasy/use_case_5.txt", "TestesEasy/use_case_6.txt"
+				"TestesEasy/use_case_4.txt", "TestesEasy/use_case_5.txt"
 	}; EasyAccept.main(args);
 	}
 	

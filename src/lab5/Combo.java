@@ -24,8 +24,7 @@ public class Combo {
 
 	
 	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
+		return nome;
 	}
 	
 	
@@ -33,15 +32,16 @@ public class Combo {
 		return String.format("%s - %s - R$%.2f", this.nome, this.descricao, this.preço); 
 	}
 	
-	public double getPreço() {
-		return this.preço - (this.preço*this.fator);
+	public double getPreco() {
+		return this.preço;
 	}
 	
 	public double calculaPreco(List<Produto> produtos) {
+		double newPreco = 0;
 		for(Produto produto: produtos) {
-			preço += produto.getPreço();
+			newPreco += produto.getPreço();
 		}
-		this.preço = this.preço - this.preço * this.fator;
+		this.preço = newPreco - (newPreco*fator);
 		return preço;
 	}
 

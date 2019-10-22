@@ -73,7 +73,7 @@ expectError "Erro na edicao de combo: descricao nao pode ser vazia ou nula." edi
 expectError "Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo." editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor="" novoFator=0.20
 expectError "Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo." editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor= novoFator=0.20
 expectError "Erro na edicao de combo: fornecedor nao existe." editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor="Helhao" novoFator=0.20
-expectError "Erro na edicao de combo: fator invalido." editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor="Marcos" novoFator=0
+stackTrace expectError "Erro na edicao de combo: fator invalido." editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor="Marcos" novoFator=0;
 expectError "Erro na edicao de combo: fator invalido." editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor="Marcos" novoFator=1
 expectError "Erro na edicao de combo: produto nao existe." editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor="Seu Olavo" novoFator=0.20
 

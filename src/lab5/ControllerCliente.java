@@ -149,6 +149,10 @@ public class ControllerCliente{
 			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao existe.");
 		}
 	}
+	
+	public String getNome(String cpf) {
+		return this.getNome(cpf);
+	}
 
 
 }

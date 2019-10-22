@@ -30,6 +30,8 @@ public class Fornecedor {
 	
 	private HashMap<String, Combo> combos;
 	
+	private HashMap<String, Conta> contas;
+	
 	/**
 	 * Construtor do fornecedor
 	 * 
@@ -49,6 +51,7 @@ public class Fornecedor {
 		this.telefone = telefone;
 		this.produtos = new HashMap<>();
 		this.combos = new HashMap<>();
+		this.contas = new HashMap<>();
 	}
 	
 	/**
@@ -133,6 +136,7 @@ public class Fornecedor {
 			return string;
 		}
 		List<Object> listaProduto = new ArrayList<>(this.produtos.values());
+		
 		if(this.combos.size() != 0) {
 			for(Combo combo: this.combos.values()) {
 				listaProduto.add(combo);
@@ -173,7 +177,7 @@ public class Fornecedor {
 	public void removerProduto(String nome, String descricao) {
 		String string = nome + descricao;
 		
-		if(!this.produtos.containsKey(string)) {
+		if(!this.produtos.containsKey(string) && !this.combos.containsKey(string)) {
 			throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 		}
 		this.produtos.remove(string);
@@ -217,6 +221,7 @@ public class Fornecedor {
 	public String exibeProduto(String nome, String descricao) {
 		String retorno = "";
 		
+		
 		String string = nome+descricao;
 		
 		
@@ -229,6 +234,7 @@ public class Fornecedor {
 		if(this.combos.containsKey(string)) {
 			retorno += this.combos.get(string).toString();
 		}
+		System.out.println(retorno);
 		return retorno;
 	}
 	
@@ -259,6 +265,28 @@ public class Fornecedor {
 		Combo combo = new Combo(nome_combo, descricao_combo, fator, produtosObj);
 		
 		this.combos.put(nome_combo+descricao_combo, combo);
+	}
+
+	public void editaCombo(String nome2, String descricao, double novoFator) {
+		String chave = nome2 + descricao;
+		if(!this.combos.containsKey(chave)) {
+			throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
+		}
+		this.combos.get(chave).editar(novoFator);
+	}
+
+	public void addCompra(String cliente, String fornecedor, String data, String nome, String descricao) {
+		if(this.contas.containsKey(cliente)) {
+			String idProduto = nome + descricao;
+			double preço = this.produtos.get(idProduto).getPreço();
+			this.contas.get(cliente).addcompra(data, nome, preço);
+		} else { 
+			Conta conta = new Conta(cliente);
+			this.contas.put(cliente, conta);
+			String idProduto = nome + descricao;
+			double preço = this.produtos.get(idProduto).getPreço();
+			this.contas.get(cliente).addcompra(data, nome, preço);
+		} 
 	}
 	
 }

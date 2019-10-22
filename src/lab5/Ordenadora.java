@@ -6,6 +6,7 @@ public class Ordenadora implements Comparator<Object>{
 	
 	@Override
 	public int compare(Object obj1, Object obj2) {
+		
 		if(obj1 instanceof Cliente) {
 			Cliente c1 = (Cliente) obj1;
 			Cliente c2 = (Cliente) obj2;
