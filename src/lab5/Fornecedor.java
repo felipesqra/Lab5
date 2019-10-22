@@ -306,16 +306,27 @@ public class Fornecedor {
 	 * @param descricao Descricao do produto
 	 */
 	public void addCompra(String cliente, String fornecedor, String data, String nome, String descricao) {
+		
 		if(this.contas.containsKey(cliente)) {
 			String idProduto = nome + descricao;
-			double preço = this.produtos.get(idProduto).getPreço();
-			this.contas.get(cliente).addcompra(data, nome, preço);
+			if(this.produtos.containsKey(idProduto)) {
+				double preço = this.produtos.get(idProduto).getPreço();
+				this.contas.get(cliente).addcompra(data, nome, preço);
+			}
 		} else { 
 			Conta conta = new Conta(cliente);
 			this.contas.put(cliente, conta);
 			String idProduto = nome + descricao;
-			double preço = this.produtos.get(idProduto).getPreço();
-			this.contas.get(cliente).addcompra(data, nome, preço);
+			if(this.produtos.containsKey(idProduto)) {
+				double preço = this.produtos.get(idProduto).getPreço();
+				this.contas.get(cliente).addcompra(data, nome, preço);
+			} else if(this.combos.containsKey(idProduto)) {
+				double preço = this.combos.get(idProduto).getPreco();
+				this.contas.get(cliente).addcompra(data, nome, preço);
+			}
+			
+			
+			
 		} 
 	}
 	

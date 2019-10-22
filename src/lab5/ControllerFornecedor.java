@@ -332,8 +332,25 @@ public class ControllerFornecedor {
 	 * @param nome Nome do produto
 	 * @param descricao Descricao do produto
 	 */
-	public void addCompra(String cliente, String fornecedor, String data, String nome, String descricao) {
-		this.fornecedores.get(fornecedor).addCompra(cliente,fornecedor, data, nome, descricao);
+	public void addCompra(String cpfCliente, String fornecedor, String data, String nome, String descricao, ControllerCliente contCliente) {
+		if(cpfCliente.length() > 11 || cpfCliente.length() < 11) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
+		}
+		Util.validandoNull(fornecedor, "Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.");
+		Util.validaVazia(fornecedor, "Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.");
+		if(!this.fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao existe.");
+		}
+		Util.validaVazia(data, "Erro ao cadastrar compra: data nao pode ser vazia ou nula.");
+		Util.validaVazia(data, "Erro ao cadastrar compra: data nao pode ser vazia ou nula.");
+		Util.validandoNull(descricao, "Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
+		Util.validaVazia(descricao, "Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
+
+		String nomeCliente = contCliente.getNome(cpfCliente);
+		if(!contCliente.containsKey(cpfCliente)){
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
+		}
+		this.fornecedores.get(fornecedor).addCompra(nomeCliente,fornecedor, data, nome, descricao);
 	}
 	
 	

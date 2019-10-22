@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+
 
 
 
@@ -43,7 +43,7 @@ public class ControllerCliente{
 			throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
 		}
 		this.clientes.put(cpf, cliente);
-		
+
 		return cliente.getCpf();
 
 	}
@@ -151,8 +151,15 @@ public class ControllerCliente{
 	}
 	
 	public String getNome(String cpf) {
-		return this.getNome(cpf);
+		return this.clientes.get(cpf).getNome();
 	}
-
+	
+	public boolean containsKey(String cpf) {
+		if(this.clientes.containsKey(cpf)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

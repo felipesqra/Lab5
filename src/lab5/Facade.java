@@ -16,17 +16,13 @@ public class Facade {
 	 * Controller da classe Cliente
 	 */
 	private ControllerCliente controllerCliente;
-	/**
-	 * Controller da classe Compra
-	 */
-	private ControllerCompra controllerCompra;
+
 	/**
 	 * Construtor do facade
 	 */
 	public Facade() {
 		this.controllerCliente = new ControllerCliente();
 		this.controllerFornecedor = new ControllerFornecedor();
-		this.controllerCompra = new ControllerCompra();
 	}
 	
 	
@@ -214,12 +210,12 @@ public class Facade {
 	 * @param descricao Descricao da compra
 	 */
 	public void adicionaCompra(String cpfCliente, String fornecedor, String data, String nome, String descricao) {
-		this.controllerCompra.addCompra(cpfCliente, fornecedor, data, nome, descricao);
+		this.controllerFornecedor.addCompra(cpfCliente, fornecedor, data, nome, descricao, this.controllerCliente);
 	}
 	
 	public static void main(String[] args) {
 		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt", "TestesEasy/use_case_3.txt",
-				"TestesEasy/use_case_4.txt", "TestesEasy/use_case_5.txt"
+				"TestesEasy/use_case_4.txt", "TestesEasy/use_case_5.txt", "TestesEasy/use_case_6.txt"
 	}; EasyAccept.main(args);
 	}
 	
