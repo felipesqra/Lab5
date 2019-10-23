@@ -1,5 +1,6 @@
 package lab5;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -304,11 +305,14 @@ public class Fornecedor {
 	 * @param data Data da compra
 	 * @param nome Nome do produto
 	 * @param descricao Descricao do produto
+	 * @throws ParseException 
 	 */
-	public void addCompra(String cliente, String fornecedor, String data, String nome, String descricao) {
-		
+	public void addCompra(String cliente, String fornecedor, String data, String nome, String descricao) throws ParseException {
+		String idProduto = nome + descricao;
+		if(!this.combos.containsKey(idProduto) && !this.produtos.containsKey(idProduto)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
+		}
 		if(this.contas.containsKey(cliente)) {
-			String idProduto = nome + descricao;
 			if(this.produtos.containsKey(idProduto)) {
 				double preço = this.produtos.get(idProduto).getPreço();
 				this.contas.get(cliente).addcompra(data, nome, preço);
@@ -316,8 +320,9 @@ public class Fornecedor {
 		} else { 
 			Conta conta = new Conta(cliente);
 			this.contas.put(cliente, conta);
-			String idProduto = nome + descricao;
 			if(this.produtos.containsKey(idProduto)) {
+				Util.validandoNull(nome, "Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
+				Util.validaVazia(nome, "Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
 				double preço = this.produtos.get(idProduto).getPreço();
 				this.contas.get(cliente).addcompra(data, nome, preço);
 			} else if(this.combos.containsKey(idProduto)) {
@@ -328,6 +333,47 @@ public class Fornecedor {
 			
 			
 		} 
+	}
+
+	public String getDebito(String nomeCliente) {
+		if(!this.contas.containsKey(nomeCliente)) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
+		}
+		return this.contas.get(nomeCliente).getdebito();
+	}
+
+	public String exibeContas(String nomeCliente) {
+		if(!this.contas.containsKey(nomeCliente)) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
+		}
+		String string = "Cliente: " + nomeCliente + " | " + this.getNome() + " | " + this.contas.get(nomeCliente).toString();
+		return string;
+	}
+
+	public String exibeContasFornecedor(String nomeCliente) {
+		String string = "";
+		
+		
+		if(this.contas.containsKey(nomeCliente)) {
+			ArrayList<String> lista = new ArrayList<>();
+			lista.add(this.nome + " | " + this.contas.get(nomeCliente).toString());
+			Collections.sort(lista);
+			
+			for(int i = 0; i < lista.size(); i++) {
+				if(i != lista.size()-1) {
+					if(lista.get(i).length() > 2) {
+						string += lista.get(i) + " | ";
+					}
+				}else {
+					if(lista.get(i).length() > 2) {
+						string += lista.get(i);
+						}
+					}
+				}
+			
+		}
+		
+		return string;
 	}
 	
 }

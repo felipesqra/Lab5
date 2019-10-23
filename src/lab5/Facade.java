@@ -1,5 +1,7 @@
 package lab5;
 
+import java.text.ParseException;
+
 import easyaccept.EasyAccept;
 
 /**
@@ -208,11 +210,23 @@ public class Facade {
 	 * @param data Data da compra
 	 * @param nome Nome da compra
 	 * @param descricao Descricao da compra
+	 * @throws ParseException 
 	 */
-	public void adicionaCompra(String cpfCliente, String fornecedor, String data, String nome, String descricao) {
-		this.controllerFornecedor.addCompra(cpfCliente, fornecedor, data, nome, descricao, this.controllerCliente);
+	public void adicionaCompra(String cpfCliente, String fornecedor, String data, String nome, String descricao) throws ParseException {
+		this.controllerFornecedor.addCompra(cpfCliente, fornecedor, data, nome, descricao, controllerCliente);
 	}
 	
+	public String getDebito(String cpf, String fornecedor) {
+		return this.controllerFornecedor.getDebito(cpf, fornecedor, this.controllerCliente);
+	}
+	
+	public String exibeContas(String cpf, String fornecedor) {
+		return this.controllerFornecedor.exibeContas(cpf, fornecedor, this.controllerCliente);
+	}
+	
+	public String exibeContasClientes(String cpf) {
+		return this.controllerFornecedor.exibeContasFornecedor(cpf, this.controllerCliente);
+	}
 	public static void main(String[] args) {
 		args = new String[] { "lab5.Facade", "TestesEasy/use_case_1.txt", "TestesEasy/use_case_2.txt", "TestesEasy/use_case_3.txt",
 				"TestesEasy/use_case_4.txt", "TestesEasy/use_case_5.txt", "TestesEasy/use_case_6.txt"

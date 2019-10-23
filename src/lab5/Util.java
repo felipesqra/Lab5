@@ -1,5 +1,7 @@
 package lab5;
 
+
+
 /**
  * Classe para tratamento de erros
  * 
@@ -30,7 +32,4 @@ public class Util {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
-
-	
 }
