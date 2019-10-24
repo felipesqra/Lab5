@@ -362,7 +362,13 @@ public class ControllerFornecedor {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
 		}
 	}
-
+	/**
+	 * Retorna o debito de um cliente
+	 * @param cpf Cpf do cliente
+	 * @param fornecedor Nome do fornecedor
+	 * @param contCliente Controller do cliente
+	 * @return
+	 */
 	public String getDebito(String cpf, String fornecedor, ControllerCliente contCliente) {
 		Util.validandoNull(cpf, "Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.");
 		Util.validaVazia(cpf, "Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.");
@@ -384,7 +390,13 @@ public class ControllerFornecedor {
 		}
 		return debito;
 	}
-
+	/**
+	 * Exibe a conta de um cliente
+	 * @param cpf cpf do cliente
+	 * @param fornecedor Nome do fornecedor
+	 * @param contCliente Controller do cliente
+	 * @return Exibe a conta de um cliente
+	 */
 	public String exibeContas(String cpf, String fornecedor, ControllerCliente contCliente) {
 		Util.validandoNull(cpf, "Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.");
 		Util.validaVazia(cpf, "Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.");
@@ -402,18 +414,38 @@ public class ControllerFornecedor {
 		String nomeCliente = contCliente.getNome(cpf);
 		return this.fornecedores.get(fornecedor).exibeContas(nomeCliente);
 	}
-
+	
+	/**
+	 * Exibe as todas as contas de um cliente
+	 * @param cpf Cpf do cliente
+	 * @param contCliente Controller do cliente
+	 * @return Retorna String ccom todas as contas do cliente
+	 */
 	public String exibeContasFornecedor(String cpf, ControllerCliente contCliente) {
+		Util.validandoNull(cpf, "Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.");
+		Util.validaVazia(cpf, "Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.");
+		if(cpf.length() > 11 || cpf.length() < 11) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cpf invalido.");
+		}
+		if(!contCliente.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
+		}
 		String nomeCliente = contCliente.getNome(cpf);
-		String retorno = "Cliente: " + nomeCliente; 
+		String retorno = "Cliente: " + nomeCliente + " | "; 
 		ArrayList<String> lista = new ArrayList<>();
+		
 		for(Fornecedor fornecedor: this.fornecedores.values()) {
-			lista.add(fornecedor.exibeContasFornecedor(nomeCliente));
+			if(fornecedor.exibeContasFornecedor(nomeCliente) != "") {
+				lista.add(fornecedor.exibeContasFornecedor(nomeCliente));
+			}
 		}
 		Collections.sort(lista);
+		
 		for(int i = 0; i < lista.size(); i++) {
-			if(i < lista.size()-1) {
-				retorno += lista.get(i) + " | ";
+		
+				if(i < lista.size()-1) {
+					retorno += lista.get(i) + " | ";
+				
 			}else {
 				retorno += lista.get(i);
 				}

@@ -318,7 +318,7 @@ public class Fornecedor {
 				this.contas.get(cliente).addcompra(data, nome, preço);
 			}
 		} else { 
-			Conta conta = new Conta(cliente);
+			Conta conta = new Conta();
 			this.contas.put(cliente, conta);
 			if(this.produtos.containsKey(idProduto)) {
 				Util.validandoNull(nome, "Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
@@ -334,14 +334,22 @@ public class Fornecedor {
 			
 		} 
 	}
-
+	/**
+	 * Retorna o debito de um cliente
+	 * @param nomeCliente Nome do vliente
+	 * @return
+	 */
 	public String getDebito(String nomeCliente) {
 		if(!this.contas.containsKey(nomeCliente)) {
 			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
 		}
 		return this.contas.get(nomeCliente).getdebito();
 	}
-
+	/**
+	 * Exibe as contas de um cliente
+	 * @param nomeCliente Nome do cliente
+	 * @return Retorna as contas de um cliente
+	 */
 	public String exibeContas(String nomeCliente) {
 		if(!this.contas.containsKey(nomeCliente)) {
 			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
@@ -349,19 +357,25 @@ public class Fornecedor {
 		String string = "Cliente: " + nomeCliente + " | " + this.getNome() + " | " + this.contas.get(nomeCliente).toString();
 		return string;
 	}
-
+	/**
+	 * Exibe uma determinada conta do cliente
+	 * @param nomeCliente Nome do cliente
+	 * @return Retona uma conta do cliente
+	 */
 	public String exibeContasFornecedor(String nomeCliente) {
 		String string = "";
 		
 		
 		if(this.contas.containsKey(nomeCliente)) {
 			ArrayList<String> lista = new ArrayList<>();
+
 			lista.add(this.nome + " | " + this.contas.get(nomeCliente).toString());
-			Collections.sort(lista);
 			
+			Collections.sort(lista);
+	
 			for(int i = 0; i < lista.size(); i++) {
-				if(i != lista.size()-1) {
-					if(lista.get(i).length() > 2) {
+				if(i < lista.size()-1) {
+					if(lista.get(i).length() != 0) {
 						string += lista.get(i) + " | ";
 					}
 				}else {
@@ -370,9 +384,7 @@ public class Fornecedor {
 						}
 					}
 				}
-			
-		}
-		
+		} 
 		return string;
 	}
 	

@@ -215,15 +215,29 @@ public class Facade {
 	public void adicionaCompra(String cpfCliente, String fornecedor, String data, String nome, String descricao) throws ParseException {
 		this.controllerFornecedor.addCompra(cpfCliente, fornecedor, data, nome, descricao, controllerCliente);
 	}
-	
+	/**
+	 * Retorna o debito de um cliente
+	 * @param cpf Cpf do cliente
+	 * @param fornecedor Nome do fornecedor
+	 * @return Retorna uma string com o debito do cliente
+	 */
 	public String getDebito(String cpf, String fornecedor) {
 		return this.controllerFornecedor.getDebito(cpf, fornecedor, this.controllerCliente);
 	}
-	
+	/**
+	 * Exibe a conta de um determinado cliente
+	 * @param cpf cpf do cliente
+	 * @param fornecedor nome do fornecedor
+	 * @return retorna uma String com uma conta do cliente
+	 */
 	public String exibeContas(String cpf, String fornecedor) {
 		return this.controllerFornecedor.exibeContas(cpf, fornecedor, this.controllerCliente);
 	}
-	
+	/**
+	 * Exibe todas as contas de um cliente
+	 * @param cpf CPf do cliente
+	 * @return Retorna todas as contas do cliente 
+	 */
 	public String exibeContasClientes(String cpf) {
 		return this.controllerFornecedor.exibeContasFornecedor(cpf, this.controllerCliente);
 	}

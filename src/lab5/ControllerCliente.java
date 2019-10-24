@@ -149,11 +149,19 @@ public class ControllerCliente{
 			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao existe.");
 		}
 	}
-	
+	/**
+	 * retorna o nome do cliente através do cpf
+	 * @param cpf cpf do cliente
+	 * @return Retorna o nome do cliente
+	 */
 	public String getNome(String cpf) {
 		return this.clientes.get(cpf).getNome();
 	}
-	
+	/**
+	 * Checa se um cliente faz parte do mapa de cliente
+	 * @param cpf cpf do cliente
+	 * @return Retorna um booleano caso o cliente faça parte
+	 */
 	public boolean containsKey(String cpf) {
 		if(this.clientes.containsKey(cpf)) {
 			return true;

@@ -14,10 +14,6 @@ import java.util.Locale;
  */
 public class Conta {
 	/**
-	 * Nome do cliente que comprou
-	 */
-	private String nomeCliente;
-	/**
 	 * Total de quanto já foi gasto por aquele cliente no fornecedor em questão
 	 */
 	private double debito;
@@ -31,8 +27,7 @@ public class Conta {
 	 * Construtor da classe Conta
 	 * @param nomeCliente Nome do cliente
 	 */
-	public Conta(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
+	public Conta() {
 		this.compras = new ArrayList<>();
 
 	}
@@ -48,14 +43,19 @@ public class Conta {
 		Compra compra = new Compra(data, nome, preço);
 		this.compras.add(compra);
 	}
-	
+	/**
+	 * Retorna o debito da conta
+	 * @return Retorna o debito da conta
+	 */
 	public String getdebito() {
 		double debito = this.debito;
 		DecimalFormat formatador = new DecimalFormat(".00", new DecimalFormatSymbols(new Locale("en", "US")));
 		String result = formatador.format(debito);
 		return result;
 	}
-	
+	/**
+	 * Retorna um toString da conta
+	 */
 	public String toString() {
 		String string = "";
 		for(int i = 0; i < compras.size(); i++) {
@@ -65,7 +65,14 @@ public class Conta {
 				string += compras.get(i);
 			}
 		}
-		System.out.print(string);
+		
 		return string;
+	}
+	/**
+	 * Retorna o tamanho da lista de itens comprados
+	 * @return
+	 */
+	public int tamanho() {
+		return compras.size();
 	}
 }
